@@ -1,0 +1,31 @@
+
+// Build.gradle generated for instrumentation module Mule-Java-1.2
+
+apply plugin: 'java'
+
+dependencies {
+   implementation 'org.mule.module:mule-java-module:1.2.0:mule-plugin'
+   implementation group: 'org.mule.runtime', name: 'mule-api', version: '1.1.0'
+
+   // New Relic Java Agent dependencies
+   implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
+   implementation 'com.newrelic.agent.java:newrelic-api:6.0.0'
+   implementation fileTree(include: ['*.jar'], dir: '../libs')
+}
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.Mule-Java-1.2'
+    attributes 'Implementation-Vendor': 'New Relic'
+    attributes 'Implementation-Vendor-Id': 'com.newrelic'
+    attributes 'Implementation-Version': 1.0
+  }
+}
+
+verifyInstrumentation {
+  // Verifier plugin documentation:
+  // https://github.com/newrelic/newrelic-gradle-verify-instrumentation
+  // Example:
+  // passes 'javax.servlet:servlet-api:[2.2,2.5]'
+  // exclude 'javax.servlet:servlet-api:2.4.public_draft'
+}
