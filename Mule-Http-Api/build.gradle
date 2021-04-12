@@ -22,8 +22,10 @@ jar {
 }
 
 verifyInstrumentation {
-	passes 'org.mule.runtime:mule-service-http-api:[4.0.0,4.2.0)'
+	passes 'org.mule.runtime:mule-service-http-api:[4.0.0,)'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*-M.*'
+    excludeRegex '.*-FD.*'
+    excludeRegex '.*-greenarrow'
 }
