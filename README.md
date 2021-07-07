@@ -24,11 +24,11 @@ To build the extension jars from source, follow these steps:
 ### Build single extension
 To build a single extension with name *extension*, do the following:
 1. Set an environment variable *NEW_RELIC_EXTENSIONS_DIR* and set its value to the directory where you want the jar file built.
-2. Run the command: gradlew *extension*:clean *extension*:install
+2. Run the command: ./gradlew *extension*:clean *extension*:install
 ### Build all extensions
 To build all extensions, do the following:
 1. Set an environment variable *NEW_RELIC_EXTENSIONS_DIR* and set its value to the directory where you want the jar file built.
-2. Run the command: gradlew clean install
+2. Run the command: ./gradlew clean install
 
 ## Support
 
