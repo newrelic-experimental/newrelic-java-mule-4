@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry output="bin/main" kind="src" path="src/main/java">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/test/java">
+		<attributes>
+			<attribute name="gradle_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-extensions-support/4.1.0/a5b305144047ab3b80868626765b6a1ba83f26a5/mule-module-extensions-support-4.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-extensions-support/4.1.0/f93c59409faebd03d2d05e0388f9a781ae536f10/mule-module-extensions-support-4.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.newrelic.agent.java/newrelic-agent/6.0.0/240d18f35d37cd32b0f4c9ac8d93c0fb940a3d69/newrelic-agent-6.0.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.newrelic.agent.java/newrelic-agent/6.0.0/e1ff45736ad201ae1ad09b4be76cd9d48a08b322/newrelic-agent-6.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/com/newrelic/agent/java/newrelic-api/6.0.0/newrelic-api-6.0.0-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/com/newrelic/agent/java/newrelic-api/6.0.0/newrelic-api-6.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-extensions-api-dsql/1.1.0/728c84abd23a3afc8ae5c4c8b2bb6551561d034a/mule-extensions-api-dsql-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-extensions-api-dsql/1.1.0/bea6f82d6ceb6ece8f8277928c6397a56aec422/mule-extensions-api-dsql-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-extensions-api-persistence/1.1.0/abc57e8cbdb2639e9b3f61ce7a9841174b904253/mule-extensions-api-persistence-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-extensions-api-persistence/1.1.0/2f583dee00a25f8498e197cb094e66c5c05e8450/mule-extensions-api-persistence-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-deployment-model/4.1.0/d2aa9622085751d73ac05a02f5fed313d60da60d/mule-module-deployment-model-4.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-deployment-model/4.1.0/cba29715e1e479d25c4f173bafa5c2ec87b268bd/mule-module-deployment-model-4.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-container/4.1.0/45d0c9cb9b0c13e633a1120066ad4bc9336c407c/mule-module-container-4.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-container/4.1.0/4c61ff4ca880de1f5c3e5a9644482657d0a0fced/mule-module-container-4.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-artifact/4.1.0/786a1b102ae9145f67fb0772a6c8fd2c598c52ef/mule-module-artifact-4.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-artifact/4.1.0/78141eed5fea45ba45de8194d8ed1241f3bb0074/mule-module-artifact-4.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-core/4.1.0/b4dd2618ed0ad931523240c344968a88f02a25a1/mule-core-4.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-core/4.1.0/9041525b90abd2c79bd2748a4379e314995c0611/mule-core-4.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-extensions-api/1.1.0/d3ae45383e3676a364606d3ea04df8b24ae9945a/mule-extensions-api-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-extensions-api/1.1.0/3561398fc4409d8be7b62dca393e967609f2d7a1/mule-extensions-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-dsl-api/1.1.0/d3afca9a2c7652772b8791331f78587c13975af6/mule-module-dsl-api-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-dsl-api/1.1.0/4cff010c9805790e78539327cab39a209404906f/mule-module-dsl-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-http-policy-api/1.1.0/ca082792975a8aabf7729fd47909bd68b4289d2b/mule-module-http-policy-api-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-http-policy-api/1.1.0/f6a716c406fe53498ea87ad75c01ee36bbbd4f6b/mule-module-http-policy-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-policy-api/1.1.0/36530412ea497520cb934281b1ad50086118a10e/mule-module-policy-api-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-policy-api/1.1.0/4d76e44c6d684131717b10771acce0a2a35f71b/mule-module-policy-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/mule/runtime/mule-api/1.1.0/mule-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-service-oauth-api/4.1.0/20f3a4a5384de097454d369f81be30a40a6b82cf/mule-service-oauth-api-4.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-service-oauth-api/4.1.0/87f5ea9db3fa958acbd65c210713f453311977a8/mule-service-oauth-api-4.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/io/projectreactor/addons/reactor-extra/3.1.2.RELEASE/reactor-extra-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/io/projectreactor/reactor-core/3.2.0.M1/reactor-core-3.2.0.M1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/mule/runtime/mule-artifact-declaration/1.1.0/mule-artifact-declaration-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-metadata-model-persistence/1.1.0/46ff61225e6bed8aa357a7eb1bd0858d4eeaf29b/mule-metadata-model-persistence-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-metadata-model-persistence/1.1.0/56ec0c2806d774addf9a489edd5e459393665dc7/mule-metadata-model-persistence-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-metadata-model-java/1.1.0/6c9b8ecab3e554507dd280442117c520fcbfcec/mule-metadata-model-java-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-metadata-model-java/1.1.0/8e56bf1730f01556793dd74fbdeeb2bceedc513f/mule-metadata-model-java-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/mule/runtime/mule-metadata-model-xml/1.1.0/mule-metadata-model-xml-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-message-metadata-model/1.1.0/a0a2a71fb6513d20618b3ba57517f0029ca58f7d/mule-message-metadata-model-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-message-metadata-model/1.1.0/2afc3df046c814d1962a1c18c482e658fd909851/mule-message-metadata-model-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-metadata-model-json/1.1.0/8a7cbfac29685d39eb18b263c3e6bb48adc2a68b/mule-metadata-model-json-1.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-metadata-model-json/1.1.0/882b49e648a7e317b3780e72961fa1b05c9a71f2/mule-metadata-model-json-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/mule/runtime/mule-metadata-model-api/1.1.0/mule-metadata-model-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/mule/mvel/mule-mvel2/2.1.9-MULE-015/mule-mvel2-2.1.9-MULE-015.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/com/google/code/gson/gson/2.8.1/gson-2.8.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/com/google/code/gson/gson/2.8.1/gson-2.8.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/javax/inject/javax.inject/1/javax.inject-1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/reflections/reflections/0.9.10/reflections-0.9.10-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/reflections/reflections/0.9.10/reflections-0.9.10.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/everit/json/org.everit.json.schema/1.5.0/org.everit.json.schema-1.5.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/com/google/guava/guava/23.5-jre/guava-23.5-jre.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/mule/runtime/api-annotations/1.0.0/api-annotations-1.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/antlr/antlr-runtime/3.5/antlr-runtime-3.5-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/antlr/antlr-runtime/3.5/antlr-runtime-3.5.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/reactivestreams/reactive-streams/1.0.2/reactive-streams-1.0.2-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/reactivestreams/reactive-streams/1.0.2/reactive-streams-1.0.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-validator/commons-validator/1.5.1/commons-validator-1.5.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-validator/commons-validator/1.5.1/commons-validator-1.5.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/com/github/stephenc/eaio-uuid/uuid/3.4.0/uuid-3.4.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-pool/commons-pool/1.6/commons-pool-1.6-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-pool/commons-pool/1.6/commons-pool-1.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/javax/transaction/javax.transaction-api/1.2/javax.transaction-api-1.2-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/javax/transaction/javax.transaction-api/1.2/javax.transaction-api-1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-connector_1.5_spec/2.0.0/geronimo-j2ee-connector_1.5_spec-2.0.0-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-connector_1.5_spec/2.0.0/geronimo-j2ee-connector_1.5_spec-2.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/jgrapht/jgrapht-jdk1.5/0.7.3/jgrapht-jdk1.5-0.7.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/yaml/snakeyaml/1.18/snakeyaml-1.18-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/yaml/snakeyaml/1.18/snakeyaml-1.18.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/cglib/cglib-nodep/3.2.5/cglib-nodep-3.2.5.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/apache/commons/commons-pool2/2.4.2/commons-pool2-2.4.2-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/apache/commons/commons-pool2/2.4.2/commons-pool2-2.4.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/javax/jms/javax.jms-api/2.0.1/javax.jms-api-2.0.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/javax/jms/javax.jms-api/2.0.1/javax.jms-api-2.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-reboot/4.1.0/daaae2d1f38c21a545e8dc6bbc399cc0b841020e/mule-module-reboot-4.1.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/org.mule.runtime/mule-module-reboot/4.1.0/2497c46cc77e132102ea5b9db2a2108143b9d723/mule-module-reboot-4.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/checkerframework/checker-qual/2.0.0/checker-qual-2.0.0-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/checkerframework/checker-qual/2.0.0/checker-qual-2.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/com/google/errorprone/error_prone_annotations/2.0.18/error_prone_annotations-2.0.18-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/com/google/errorprone/error_prone_annotations/2.0.18/error_prone_annotations-2.0.18.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/apache/xmlbeans/xmlbeans/2.6.0/xmlbeans-2.6.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/mule/apache/xerces2-xsd11/2.11.3/xerces2-xsd11-2.11.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.github.stephenc.eaio-grabbag/grabbag/1.8.1/cf43cf2064b89e5426c69fc00fcf4d8075eb7fe1/grabbag-1.8.1-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.github.stephenc.eaio-grabbag/grabbag/1.8.1/f358c023dac1e373fe40fc0479802053c1ef4bfa/grabbag-1.8.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/tanukisoft/wrapper/3.2.3/wrapper-3.2.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/com/vdurmont/semver4j/2.0.3/semver4j-2.0.3.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/eclipse/aether/aether-util/1.0.2.v20150114/aether-util-1.0.2.v20150114-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/eclipse/aether/aether-util/1.0.2.v20150114/aether-util-1.0.2.v20150114.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/eclipse/aether/aether-api/1.0.2.v20150114/aether-api-1.0.2.v20150114-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/eclipse/aether/aether-api/1.0.2.v20150114/aether-api-1.0.2.v20150114.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/.m2/repository/org/json/json/20160810/json-20160810.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-digester/commons-digester/1.8.1/commons-digester-1.8.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-digester/commons-digester/1.8.1/commons-digester-1.8.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/nanohttpd/nanohttpd/2.3.1/nanohttpd-2.3.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/nanohttpd/nanohttpd/2.3.1/nanohttpd-2.3.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/instrumentation-test-6.0.0-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-model-6.0.0-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-interfaces-6.0.0-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-bridge-6.0.0-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-bridge-datastore-6.0.0-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+</classpath>

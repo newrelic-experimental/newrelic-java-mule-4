@@ -2,7 +2,6 @@ package org.mule.runtime.module.extension.internal.runtime.source;
 
 import java.util.function.Supplier;
 
-import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.privileged.execution.MessageProcessContext;
 import org.mule.runtime.extension.api.runtime.config.ConfigurationInstance;
@@ -16,11 +15,8 @@ import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import com.nr.instrumentation.mule.extensions.Utils;
 
-@SuppressWarnings("deprecation")
 @Weave
 abstract class DefaultSourceCallback<T, A> {
-
-	private MuleContext muleContext = Weaver.callOriginal();
 
 	private Supplier<MessageProcessContext> processContextSupplier = Weaver.callOriginal();
 
@@ -44,7 +40,6 @@ abstract class DefaultSourceCallback<T, A> {
 		Utils.addAppName(getOwningSourceName());
 		NewRelic.addCustomParameter("Owning-Source-Name", getOwningSourceName() != null ? getOwningSourceName() : "Unnamed");
 		NewRelic.addCustomParameter("Owning-Extension-Name", getOwningExtensionName() != null ? getOwningExtensionName() : "Unnamed");
-		NewRelic.addCustomParameter("MuleContext-ID", muleContext.getId());
 		NewRelic.addCustomParameter("Configuration-Instance-Name", getConfigurationInstance().getName());
 		Weaver.callOriginal();
 	}
