@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Title: com.newrelic.instrumentation.Mule-APIKit-Module_
+ 1.10
+Implementation-Version: 1.0
+Implementation-Vendor-Id: com.newrelic
+Implementation-Vendor: New Relic
+
