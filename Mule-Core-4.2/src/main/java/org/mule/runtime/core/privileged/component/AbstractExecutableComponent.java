@@ -13,6 +13,7 @@ import org.mule.runtime.core.internal.event.MuleUtils;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
+import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
@@ -46,7 +47,9 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 		if(location != null) {
 			String locationStr = location.getLocation();
 			if(locationStr != null && !locationStr.isEmpty()) {
-				NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","AbstractExecutableComponent",getClass().getSimpleName(),"execute"});
+				TracedMethod traced = NewRelic.getAgent().getTracedMethod();
+				traced.addCustomAttribute("Location", locationStr);
+				traced.setMetricName(new String[] {"Custom","AbstractExecutableComponent",getClass().getSimpleName(),"execute"});
 			}
 		}
 		return f;

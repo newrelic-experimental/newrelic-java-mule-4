@@ -1,0 +1,4 @@
+Mule-Core-4.1.3 org.mule.runtime:mule-core:4.1.3
+Mule-Core-4.1.3 org.mule.runtime:mule-core:4.1.5
+Mule-Core-4.1.3 org.mule.runtime:mule-core:4.1.6
+Mule-Core-4.1.3 org.mule.runtime:mule-core:4.1.4

@@ -8,6 +8,7 @@ import org.mule.runtime.core.privileged.execution.MessageProcessTemplate;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Segment;
 import com.newrelic.api.agent.Trace;
+import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
@@ -28,7 +29,9 @@ public abstract class PhaseExecutionEngine {
 				}
 			}
 		}
-		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","PhaseExecutionEngine","process",location);
+		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
+		traced.addCustomAttribute("Location", location);
+		traced.setMetricName("Custom","PhaseExecutionEngine","process",location);
 		Weaver.callOriginal();
 	}
 	

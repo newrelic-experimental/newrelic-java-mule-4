@@ -1,6 +1,8 @@
 package org.mule.runtime.core.internal.processor;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mule.runtime.core.api.event.CoreEvent;
 import org.mule.runtime.core.internal.event.MuleUtils;
@@ -10,6 +12,7 @@ import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.NRCoreUtils;
 
 @Weave
 public abstract class InvokerMessageProcessor {
@@ -18,6 +21,9 @@ public abstract class InvokerMessageProcessor {
 
 	@Trace(async=true)
 	public CoreEvent process(final CoreEvent event) {
+		Map<String, Object> attributes = new HashMap<String, Object>();
+		NRCoreUtils.recordCoreEvent(null, event, attributes);
+		NewRelic.getAgent().getTracedMethod().addCustomAttributes(attributes);
 		Token token = MuleUtils.getToken(event);
 		if(token != null) {
 			token.link();

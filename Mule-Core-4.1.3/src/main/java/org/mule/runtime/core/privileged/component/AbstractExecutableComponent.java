@@ -1,5 +1,7 @@
 package org.mule.runtime.core.privileged.component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import org.mule.runtime.api.component.AbstractComponent;
@@ -16,6 +18,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.NRCoreUtils;
 
 @Weave(type=MatchType.BaseClass)
 public abstract class AbstractExecutableComponent extends AbstractComponent {
@@ -35,6 +38,8 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 
 	@Trace(dispatcher=true,async=true)
 	public CompletableFuture<Event> execute(Event paramEvent) {
+		Map<String, Object> attributes = new HashMap<String, Object>();
+		NRCoreUtils.recordCoreEvent(null, paramEvent, attributes);
 		if(CoreEvent.class.isInstance(paramEvent)) {
 			Token token = MuleUtils.getToken((CoreEvent)paramEvent);
 			if(token != null) {

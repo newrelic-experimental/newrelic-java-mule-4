@@ -34,6 +34,7 @@ public abstract class PhaseExecutionEngine {
 		}
 		if(!location.equals("Unknown")) {
 			NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_LOW, false, "Flow", location);
+			NewRelic.getAgent().getTracedMethod().addCustomAttribute("Location", location);
 		}
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","PhaseExecutionEngine","process",location);
 		Weaver.callOriginal();
