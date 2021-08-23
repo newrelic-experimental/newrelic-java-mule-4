@@ -1,2 +1,0 @@
-Mule-Core-4.2 org.mule.runtime:mule-core:4.2.1
-Mule-Core-4.2 org.mule.runtime:mule-core:4.2.0
