@@ -1,5 +1,7 @@
 package org.mule.runtime.core.internal.execution;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -9,9 +11,11 @@ import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.internal.policy.PolicyManager;
 import org.mule.runtime.core.privileged.execution.MessageProcessContext;
 
+import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import com.newrelic.mule.core.NRBiConsumer;
+import com.newrelic.mule.core.NRCoreUtils;
 import com.newrelic.mule.core.NREventConsumer;
 
 @Weave
@@ -40,6 +44,9 @@ public abstract class ModuleFlowProcessingPhase {
 	
 	@SuppressWarnings("unused")
 	private Consumer<CoreEvent> onMessageReceived(ModuleFlowProcessingPhaseTemplate template,MessageProcessContext messageProcessContext, FlowConstruct flowConstruct) {
+		Map<String, Object> attributes = new HashMap<String, Object>();
+		NRCoreUtils.recordFlowConstruct(flowConstruct, attributes);
+		NewRelic.getAgent().getTracedMethod().addCustomAttributes(attributes);
 		Consumer<CoreEvent> consumer = Weaver.callOriginal();
 		NREventConsumer nrConsumer = new NREventConsumer("MessageRecieved-"+flowConstruct.getName());
 		return nrConsumer.andThen(consumer);

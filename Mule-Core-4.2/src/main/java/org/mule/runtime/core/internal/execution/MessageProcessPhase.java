@@ -7,6 +7,7 @@ import org.mule.runtime.core.privileged.execution.MessageProcessTemplate;
 
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
+import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
@@ -23,7 +24,9 @@ public abstract class MessageProcessPhase<Template extends MessageProcessTemplat
 				if(location != null) {
 					String tmp = location.getLocation();
 					if(tmp != null && !tmp.isEmpty()) {
-						NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","MessageProcessPhase",getClass().getSimpleName(),"runPhase",tmp});
+						TracedMethod traced = NewRelic.getAgent().getTracedMethod();
+						traced.addCustomAttribute("Location", tmp);
+						traced.setMetricName(new String[] {"Custom","MessageProcessPhase",getClass().getSimpleName(),"runPhase",tmp});
 					}
 				}
 			}

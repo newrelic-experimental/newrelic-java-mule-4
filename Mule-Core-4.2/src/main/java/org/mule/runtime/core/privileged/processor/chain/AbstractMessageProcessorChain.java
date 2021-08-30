@@ -1,6 +1,8 @@
 package org.mule.runtime.core.privileged.processor.chain;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.mule.runtime.core.api.event.CoreEvent;
@@ -13,6 +15,7 @@ import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.NRCoreUtils;
 
 @Weave(type=MatchType.BaseClass)
 class AbstractMessageProcessorChain {
@@ -28,8 +31,13 @@ class AbstractMessageProcessorChain {
 
 	@Trace(dispatcher=true)
 	public CoreEvent process(final CoreEvent event) {
+		Map<String, Object> attributes = new HashMap<String, Object>();
+		NRCoreUtils.recordCoreEvent("Input", event, attributes);
+		NRCoreUtils.recordValue(attributes, "ChainName", chainName);
 		NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","MuleProcessorChain",getClass().getSimpleName(),"process",chainName});
 		CoreEvent retValue = Weaver.callOriginal();
+		NRCoreUtils.recordCoreEvent("Returned", retValue, attributes);
+		NewRelic.getAgent().getTracedMethod().addCustomAttributes(attributes);
 		return retValue;
 	}
 	
