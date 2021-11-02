@@ -4,6 +4,7 @@ import org.mule.runtime.core.api.execution.ExecutionCallback;
 
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
+import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
@@ -14,6 +15,9 @@ public abstract class ExecutionInterceptor<T> {
 	@Trace
 	public T execute(ExecutionCallback<T> callback, ExecutionContext executionContext) {
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","ExecutionInterceptor",getClass().getName(),"execute");
+		if(callback.headers != null && !callback.headers.isEmpty()) {
+			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, callback.headers);
+		}
 		return Weaver.callOriginal();
 	}
 }

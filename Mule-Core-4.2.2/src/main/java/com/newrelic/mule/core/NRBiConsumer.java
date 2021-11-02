@@ -6,17 +6,19 @@ import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
+import com.newrelic.api.agent.TransportType;
 
 public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
 	
 	private String name = null;
-	private Token token = null;
+	private NRMuleHeaders headers = null;
 	
 	private static boolean isTransformed = false;
 	
 	public NRBiConsumer(String n) {
 		name = n;
-		token = NewRelic.getAgent().getTransaction().getToken();
+		headers = new NRMuleHeaders();
+		NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(headers);
 		if(!isTransformed) {
 			AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
 			isTransformed = true;
@@ -24,14 +26,15 @@ public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
 	}
 	
 	@Override
-	@Trace(async=true)
+	@Trace(dispatcher=true)
 	public void accept(T t, U u) {
 		if(name != null && !name.isEmpty()) {
 			NewRelic.getAgent().getTracedMethod().setMetricName("Custom","CompletionHandler",name);
 		}
-		if(token != null) {
-			token.linkAndExpire();
-			token = null;
+		if(headers != null && !headers.isEmpty()) {
+			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+		} else {
+			NewRelic.getAgent().getTransaction().ignore();
 		}
 	}
 

@@ -1,0 +1,108 @@
+package org.mule.runtime.core.internal.event;
+
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
+import org.mule.runtime.api.event.EventContext;
+import org.mule.runtime.core.api.event.CoreEvent;
+import org.mule.runtime.core.api.exception.FlowExceptionHandler;
+import org.mule.runtime.core.privileged.event.BaseEventContext;
+import org.reactivestreams.Publisher;
+
+import com.newrelic.api.agent.NewRelic;
+import com.newrelic.api.agent.TransportType;
+import com.newrelic.api.agent.weaver.NewField;
+import com.newrelic.api.agent.weaver.Weave;
+import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.NRMuleHeaders;
+
+@Weave
+abstract class AbstractEventContext implements BaseEventContext {
+	
+	@NewField
+	public NRMuleHeaders headers = null;
+	
+	public AbstractEventContext() {
+		
+	}
+	
+	public AbstractEventContext(FlowExceptionHandler exceptionHandler, int depthLevel,Optional<CompletableFuture<Void>> externalCompletion) { 
+	}
+	
+	public abstract Optional<BaseEventContext> getParentContext();
+
+	void addChildContext(final BaseEventContext childContext) {
+		if(childContext != null && childContext instanceof AbstractEventContext) {
+			NRMuleHeaders childHeaders = MuleUtils.getHeaders(childContext);
+			if(childHeaders == null || childHeaders.isEmpty()) {
+				if(headers != null) {
+					if(headers.isEmpty()) {
+						NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(headers);
+						if(!headers.isEmpty()) {
+							MuleUtils.setHeaders(childContext,headers);
+						}
+					} 
+				}
+			}
+		}
+		Weaver.callOriginal();
+	}
+
+	public void success() {
+		
+		if(headers != null && !headers.isEmpty()) {
+			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+			headers.clear();
+			headers = null;
+		}
+ 		expireParent(getParentContext());
+		Weaver.callOriginal();
+	}
+	
+	private void expireParent(Optional<BaseEventContext> parent) {
+		if(parent != null && parent.isPresent()) {
+			BaseEventContext root = parent.get().getRootContext();
+			if(root instanceof AbstractEventContext) {
+				AbstractEventContext aCtx = (AbstractEventContext)root;
+				if(aCtx.headers != null) {
+					((AbstractEventContext)root).headers.clear();
+					((AbstractEventContext)root).headers = null;
+				}
+			}
+		}
+	}
+
+	public void success(CoreEvent event) {
+		if(headers != null && !headers.isEmpty()) {
+			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+			headers.clear();
+			headers = null;
+		} else {
+			
+			EventContext ctx = event.getContext();
+			if(AbstractEventContext.class.isInstance(ctx)) {
+				AbstractEventContext bctx = (AbstractEventContext)ctx;
+				if(headers != null && !headers.isEmpty()) {
+					NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+					headers.clear();
+					headers = null;
+				}
+				expireParent(bctx.getParentContext());
+			}
+		}
+		expireParent(getParentContext());
+		Weaver.callOriginal();
+	}
+
+	public Publisher<Void> error(Throwable throwable) {
+		if(headers != null && !headers.isEmpty()) {
+			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+			headers.clear();
+			headers = null;
+		}
+		expireParent(getParentContext());
+		NewRelic.noticeError(throwable);
+		return Weaver.callOriginal();
+	}
+
+}

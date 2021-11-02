@@ -6,12 +6,13 @@ import org.mule.runtime.core.privileged.execution.MessageProcessContext;
 import org.mule.runtime.core.privileged.execution.MessageProcessTemplate;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TransactionNamePriority;
+import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave
 public abstract class PhaseExecutionEngine {
@@ -54,7 +55,7 @@ public abstract class PhaseExecutionEngine {
 		private String name = null;
 
 		@NewField
-		private Token token = null;
+		private NRMuleHeaders headers = null;
 		
 		@Trace
 		public void process() {
@@ -65,7 +66,8 @@ public abstract class PhaseExecutionEngine {
 					if(location != null) {
 						String tmp = location.getLocation();
 						if(tmp != null && !tmp.isEmpty()) {
-							token = NewRelic.getAgent().getTransaction().getToken();
+							headers = new NRMuleHeaders();
+							NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(headers);
 							name = "Phase-"+tmp;
 						}
 					}
@@ -74,11 +76,12 @@ public abstract class PhaseExecutionEngine {
 			Weaver.callOriginal();
 		}
 
-		@Trace(async=true)
+		@Trace(dispatcher=true)
 		private void processEndPhase() {
-			if(token != null) {
-				token.linkAndExpire();
-				token = null;
+			if(headers != null && !headers.isEmpty()) {
+				NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+			} else {
+				NewRelic.getAgent().getTransaction().ignore();
 			}
 			if(name != null) {
 				NewRelic.getAgent().getTracedMethod().setMetricName("Custom","PhaseExecution","EndPhase",name);
