@@ -27,7 +27,9 @@ abstract class AbstractEventContext implements BaseEventContext {
 	}
 	
 	public AbstractEventContext(FlowExceptionHandler exceptionHandler, int depthLevel,Optional<CompletableFuture<Void>> externalCompletion) { 
-		setHeaders();
+		if(this instanceof DefaultEventContext) {
+			setHeaders();
+		}
 	}
 	
 	public abstract Optional<BaseEventContext> getParentContext();
@@ -55,12 +57,18 @@ abstract class AbstractEventContext implements BaseEventContext {
 			headers.clear();
 			headers = null;
 		}
- 		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			if(parent != null && parent.isPresent()) {
+				expireParent(parent);
+			}
+		} catch (NullPointerException e) {
+		}
 		Weaver.callOriginal();
 	}
 	
 	private void expireParent(Optional<BaseEventContext> parent) {
-		if(parent.isPresent()) {
+		if(parent != null && parent.isPresent()) {
 			BaseEventContext root = parent.get().getRootContext();
 			if(root instanceof AbstractEventContext) {
 				((AbstractEventContext)root).headers.clear();
@@ -84,10 +92,18 @@ abstract class AbstractEventContext implements BaseEventContext {
 					headers.clear();
 					headers = null;
 				}
-				expireParent(bctx.getParentContext());
+				try {
+					Optional<BaseEventContext> parent = bctx.getParentContext();
+					expireParent(parent);
+				} catch (NullPointerException e) {
+				}
 			}
 		}
-		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			expireParent(parent);
+		} catch (NullPointerException e) {
+		}
 		Weaver.callOriginal();
 	}
 
@@ -97,7 +113,11 @@ abstract class AbstractEventContext implements BaseEventContext {
 			headers.clear();
 			headers = null;
 		}
-		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			expireParent(parent);
+		} catch (NullPointerException e) {
+		}
 		NewRelic.noticeError(throwable);
 		return Weaver.callOriginal();
 	}
@@ -106,7 +126,13 @@ abstract class AbstractEventContext implements BaseEventContext {
 		if(headers == null) {
 			headers = MuleUtils.getHeaders(getRootContext());
 			if(headers == null || headers.isEmpty()) {
-				MuleUtils.setHeaders(getRootContext());
+				try {
+					BaseEventContext root = getRootContext();
+					if (root != null) {
+						MuleUtils.setHeaders(root);
+					}
+				} catch (NullPointerException e) {
+				}
 			}
 		}
 	}

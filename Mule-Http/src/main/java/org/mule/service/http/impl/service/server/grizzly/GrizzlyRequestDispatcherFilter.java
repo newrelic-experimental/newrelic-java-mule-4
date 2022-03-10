@@ -27,11 +27,6 @@ public abstract class GrizzlyRequestDispatcherFilter {
 
 	@Trace(dispatcher=true)
 	public NextAction handleRead(final FilterChainContext ctx) {
-		try {
-			Thread.sleep(1000L);
-		} catch(Exception e) {
-			
-		}
 		Transaction txn = NewRelic.getAgent().getTransaction();
 		if(!txn.isWebTransaction()) {
 			txn.convertToWebTransaction();

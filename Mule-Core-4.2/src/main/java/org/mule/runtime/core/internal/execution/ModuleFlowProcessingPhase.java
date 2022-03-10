@@ -20,28 +20,28 @@ import com.newrelic.mule.core.NREventConsumer;
 
 @Weave
 public abstract class ModuleFlowProcessingPhase {
-	
+
 	public ModuleFlowProcessingPhase(PolicyManager policyManager) {
-		
+
 	}
-	
+
 	@Weave
 	static final class PhaseContext {
-		
+
 	}
-	
+
 
 	@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
 	private CoreEvent createEvent(ModuleFlowProcessingPhaseTemplate template,
 			MessageSource source, CompletableFuture<Void> responseCompletion,
-			 FlowConstruct flowConstruct) {
-		
+			FlowConstruct flowConstruct) {
+
 		NRBiConsumer nrConsumer = new NRBiConsumer(flowConstruct.getName() != null ? flowConstruct.getName() : null);
 		responseCompletion = responseCompletion.whenComplete(nrConsumer);
 		CoreEvent event = Weaver.callOriginal();
 		return event;
 	}
-	
+
 	@SuppressWarnings("unused")
 	private Consumer<CoreEvent> onMessageReceived(ModuleFlowProcessingPhaseTemplate template,MessageProcessContext messageProcessContext, FlowConstruct flowConstruct) {
 		Map<String, Object> attributes = new HashMap<String, Object>();
@@ -51,5 +51,5 @@ public abstract class ModuleFlowProcessingPhase {
 		NREventConsumer nrConsumer = new NREventConsumer("MessageRecieved-"+flowConstruct.getName());
 		return nrConsumer.andThen(consumer);
 	}
-	
+
 }
