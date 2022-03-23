@@ -1,11 +1,13 @@
 package org.mule.service.http.impl.service.server.grizzly;
 
+import java.net.InetSocketAddress;
 import java.util.logging.Level;
 
 import org.glassfish.grizzly.filterchain.FilterChainContext;
 import org.glassfish.grizzly.filterchain.NextAction;
 import org.glassfish.grizzly.http.HttpContent;
 import org.glassfish.grizzly.http.HttpRequestPacket;
+import org.mule.service.http.impl.service.server.DefaultServerAddress;
 import org.mule.service.http.impl.service.server.RequestHandlerProvider;
 
 import com.newrelic.api.agent.NewRelic;
@@ -27,6 +29,13 @@ public abstract class GrizzlyRequestDispatcherFilter {
 
 	@Trace(dispatcher=true)
 	public NextAction handleRead(final FilterChainContext ctx) {
+		InetSocketAddress tmpLocal = (InetSocketAddress) ctx.getConnection().getLocalAddress();
+		DefaultServerAddress tmpServerAdd = new DefaultServerAddress(tmpLocal.getAddress().toString(), tmpLocal.getPort());
+		
+		if(!requestHandlerProvider.hasHandlerFor(tmpServerAdd)) {
+			String msg = "Failed to find a request handler for address: " + tmpLocal.toString();
+			NewRelic.noticeError(msg);
+		}
 		Transaction txn = NewRelic.getAgent().getTransaction();
 		if(!txn.isWebTransaction()) {
 			txn.convertToWebTransaction();
