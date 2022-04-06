@@ -1,9 +1,7 @@
 package com.nr.instrumentation.mule.scheduler;
 
 import com.newrelic.agent.bridge.AgentBridge;
-import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TransportType;
 
 public class NRRunnable implements Runnable {
 	
@@ -24,11 +22,7 @@ public class NRRunnable implements Runnable {
 	@Override
 	@Trace(dispatcher=true)
 	public void run() {
-		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-		} else {
-			NewRelic.getAgent().getTransaction().ignore();
-		}
+		HeaderUtils.acceptHeaders(headers);
 		if(delegate != null) {
 			delegate.run();
 		}

@@ -4,9 +4,7 @@ import java.util.function.BiConsumer;
 
 import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TransportType;
 
 public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
 	
@@ -31,11 +29,7 @@ public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
 		if(name != null && !name.isEmpty()) {
 			NewRelic.getAgent().getTracedMethod().setMetricName("Custom","CompletionHandler",name);
 		}
-		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-		} else {
-			NewRelic.getAgent().getTransaction().ignore();
-		}
+		HeaderUtils.acceptHeaders(headers, true);
 	}
 
 }

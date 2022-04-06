@@ -7,9 +7,7 @@ import org.mule.runtime.core.internal.event.MuleUtils;
 
 import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TransportType;
 
 public class NREventConsumer implements Consumer<CoreEvent> {
 	
@@ -33,11 +31,7 @@ public class NREventConsumer implements Consumer<CoreEvent> {
 	@Trace(dispatcher=true)
 	public void accept(CoreEvent event) {
 		NRMuleHeaders headers = MuleUtils.getHeaders(event);
-		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-		} else {
-			NewRelic.getAgent().getTransaction().ignore();
-		}
+		HeaderUtils.acceptHeaders(headers, true);
 		if(name != null) {
 			NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","EventConsumer",name});
 		}

@@ -8,10 +8,10 @@ import org.mule.runtime.core.api.retry.policy.RetryPolicyTemplate;
 
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
 import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave
@@ -27,9 +27,7 @@ public abstract class RetryWorker {
 	
 	@Trace(dispatcher=true)
 	public void run() {
-		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-		}
+		HeaderUtils.acceptHeaders(headers, false);
 		Weaver.callOriginal();
 	}
 

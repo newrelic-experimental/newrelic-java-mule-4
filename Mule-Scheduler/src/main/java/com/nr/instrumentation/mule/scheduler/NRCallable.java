@@ -3,9 +3,7 @@ package com.nr.instrumentation.mule.scheduler;
 import java.util.concurrent.Callable;
 
 import com.newrelic.agent.bridge.AgentBridge;
-import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TransportType;
 
 public class NRCallable<V> implements Callable<V> {
 	
@@ -27,11 +25,7 @@ public class NRCallable<V> implements Callable<V> {
 	@Override
 	@Trace(dispatcher = true)
 	public V call() throws Exception {
-		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-		} else {
-			NewRelic.getAgent().getTransaction().ignore();
-		}
+		HeaderUtils.acceptHeaders(headers);
 		if(delegate != null) {
 			return delegate.call();
 		}

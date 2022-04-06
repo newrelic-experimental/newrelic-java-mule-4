@@ -10,10 +10,10 @@ import org.mule.runtime.core.privileged.event.BaseEventContext;
 import org.reactivestreams.Publisher;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
 import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave
@@ -51,16 +51,22 @@ abstract class AbstractEventContext implements BaseEventContext {
 
 	public void success() {
 		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+			HeaderUtils.acceptHeaders(headers, false);
 			headers.clear();
 			headers = null;
 		}
- 		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			if(parent != null && parent.isPresent()) {
+				expireParent(parent);
+			}
+		} catch (NullPointerException e) {
+		}
 		Weaver.callOriginal();
 	}
 	
 	private void expireParent(Optional<BaseEventContext> parent) {
-		if(parent.isPresent()) {
+		if(parent !=  null && parent.isPresent()) {
 			BaseEventContext root = parent.get().getRootContext();
 			if(root instanceof AbstractEventContext) {
 				((AbstractEventContext)root).headers.clear();
@@ -71,7 +77,7 @@ abstract class AbstractEventContext implements BaseEventContext {
 
 	public void success(CoreEvent event) {
 		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+			HeaderUtils.acceptHeaders(headers, false);
 			headers.clear();
 			headers = null;
 		} else {
@@ -80,7 +86,7 @@ abstract class AbstractEventContext implements BaseEventContext {
 			if(AbstractEventContext.class.isInstance(ctx)) {
 				AbstractEventContext bctx = (AbstractEventContext)ctx;
 				if(headers != null && !headers.isEmpty()) {
-					NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+					HeaderUtils.acceptHeaders(headers, false);
 					headers.clear();
 					headers = null;
 				}
@@ -93,7 +99,7 @@ abstract class AbstractEventContext implements BaseEventContext {
 
 	public Publisher<Void> error(Throwable throwable) {
 		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
+			HeaderUtils.acceptHeaders(headers, false);
 			headers.clear();
 			headers = null;
 		}

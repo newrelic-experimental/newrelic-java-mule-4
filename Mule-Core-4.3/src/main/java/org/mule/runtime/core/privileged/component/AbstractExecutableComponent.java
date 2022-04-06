@@ -12,10 +12,10 @@ import org.mule.runtime.core.internal.event.MuleUtils;
 
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
 import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave(type=MatchType.BaseClass)
@@ -38,9 +38,7 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 	public CompletableFuture<Event> execute(Event paramEvent) {
 		if(CoreEvent.class.isInstance(paramEvent)) {
 			NRMuleHeaders headers = MuleUtils.getHeaders((CoreEvent)paramEvent);
-			if(headers != null && !headers.isEmpty()) {
-				NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-			}
+			HeaderUtils.acceptHeaders(headers, false);
 		}
 		CompletableFuture<Event> f = Weaver.callOriginal();
 		ComponentLocation location = getLocation();

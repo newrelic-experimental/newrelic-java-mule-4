@@ -7,6 +7,7 @@ import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
 import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave(type=MatchType.Interface)
@@ -17,9 +18,7 @@ public abstract class CompletableCallback<T> {
 	
 	@Trace
 	public void complete(T var1) {
-		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-		}
+		HeaderUtils.acceptHeaders(headers, false);
 		Weaver.callOriginal();
 	}
 

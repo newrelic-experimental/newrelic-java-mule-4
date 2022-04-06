@@ -10,9 +10,9 @@ import org.mule.runtime.core.internal.event.MuleUtils;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TracedMethod;
-import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
 import com.newrelic.mule.core.NRCoreUtils;
 import com.newrelic.mule.core.NRMuleHeaders;
 
@@ -26,11 +26,7 @@ public abstract class InvokerMessageProcessor {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", event, attributes);
 		NRMuleHeaders headers = MuleUtils.getHeaders(event);
-		if(headers != null && !headers.isEmpty()) {
-			NewRelic.getAgent().getTransaction().acceptDistributedTraceHeaders(TransportType.Other, headers);
-		} else {
-			NewRelic.getAgent().getTransaction().ignore();
-		}
+		HeaderUtils.acceptHeaders(headers, true);
 		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
 		if(method != null) {
 			traced.addCustomAttribute("Method-Class", method.getDeclaringClass().getName());
