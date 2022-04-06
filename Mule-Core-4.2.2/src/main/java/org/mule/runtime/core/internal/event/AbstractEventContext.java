@@ -93,7 +93,13 @@ abstract class AbstractEventContext implements BaseEventContext {
 				expireParent(bctx.getParentContext());
 			}
 		}
-		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			if(parent != null && parent.isPresent()) {
+				expireParent(parent);
+			}
+		} catch (NullPointerException e) {
+		}
 		Weaver.callOriginal();
 	}
 
@@ -103,7 +109,13 @@ abstract class AbstractEventContext implements BaseEventContext {
 			headers.clear();
 			headers = null;
 		}
-		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			if(parent != null && parent.isPresent()) {
+				expireParent(parent);
+			}
+		} catch (NullPointerException e) {
+		}
 		NewRelic.noticeError(throwable);
 		return Weaver.callOriginal();
 	}

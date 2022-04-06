@@ -10,7 +10,6 @@ import org.mule.runtime.core.privileged.event.BaseEventContext;
 import org.reactivestreams.Publisher;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
