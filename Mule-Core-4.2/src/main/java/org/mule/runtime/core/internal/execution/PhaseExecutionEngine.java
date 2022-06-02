@@ -6,12 +6,14 @@ import org.mule.runtime.core.privileged.execution.MessageProcessContext;
 import org.mule.runtime.core.privileged.execution.MessageProcessTemplate;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Segment;
 import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TracedMethod;
+import com.newrelic.api.agent.TransactionNamePriority;
+import com.newrelic.api.agent.TransportType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave
 public abstract class PhaseExecutionEngine {
@@ -26,12 +28,17 @@ public abstract class PhaseExecutionEngine {
 				String temp = componentLoc.getLocation();
 				if(temp != null && !temp.isEmpty()) {
 					location = temp;
+					if(location.endsWith("/source")) {
+						location = location.replace("/source", "").trim();
+					}
 				}
 			}
 		}
-		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
-		traced.addCustomAttribute("Location", location);
-		traced.setMetricName("Custom","PhaseExecutionEngine","process",location);
+		if(!location.equals("Unknown")) {
+			NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_LOW, false, "Flow", location);
+			NewRelic.getAgent().getTracedMethod().addCustomAttribute("Location", location);
+		}
+		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","PhaseExecutionEngine","process",location);
 		Weaver.callOriginal();
 	}
 	
@@ -44,10 +51,14 @@ public abstract class PhaseExecutionEngine {
 				final MessageProcessContext messageProcessContext) {
 			
 		}
+		
+		@NewField
+		private String name = null;
 
 		@NewField
-		private Segment segment = null;
+		private NRMuleHeaders headers = null;
 		
+		@Trace
 		public void process() {
 			if(messageProcessContext != null) {
 				MessageSource source = messageProcessContext.getMessageSource();
@@ -56,17 +67,22 @@ public abstract class PhaseExecutionEngine {
 					if(location != null) {
 						String tmp = location.getLocation();
 						if(tmp != null && !tmp.isEmpty()) {
-							segment = NewRelic.getAgent().getTransaction().startSegment("Phase-"+tmp);
+							headers = new NRMuleHeaders();
+							NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(headers);
+							name = "Phase-"+tmp;
 						}
 					}
 				}
 			}
 			Weaver.callOriginal();
 		}
-		
-		@SuppressWarnings("unused")
+
+		@Trace(dispatcher=true)
 		private void processEndPhase() {
-			segment.end();
+			HeaderUtils.acceptHeaders(headers, true);
+			if(name != null) {
+				NewRelic.getAgent().getTracedMethod().setMetricName("Custom","PhaseExecution","EndPhase",name);
+			}
 			Weaver.callOriginal();
 		}
 	}

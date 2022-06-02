@@ -10,93 +10,128 @@ import org.mule.runtime.core.privileged.event.BaseEventContext;
 import org.reactivestreams.Publisher;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
-import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave
 abstract class AbstractEventContext implements BaseEventContext {
 	
 	@NewField
-	public Token token = null;
+	public NRMuleHeaders headers = null;
 	
 	public AbstractEventContext() {
 		
 	}
 	
-	public AbstractEventContext(final FlowExceptionHandler exceptionHandler) {
-		
-	}
-	
-	public AbstractEventContext(final FlowExceptionHandler exceptionHandler, final int depthLevel,final Optional<CompletableFuture<Void>> externalCompletion) {
-		token = NewRelic.getAgent().getTransaction().getToken();
+	public AbstractEventContext(FlowExceptionHandler exceptionHandler, int depthLevel,Optional<CompletableFuture<Void>> externalCompletion) { 
+		setHeaders();
 	}
 	
 	public abstract Optional<BaseEventContext> getParentContext();
 
-	@Trace(async=true,excludeFromTransactionTrace=true)
-	public void success() {
-		if(token != null) {
-			token.linkAndExpire();
-			token = null;
+	void addChildContext(final BaseEventContext childContext) {
+		if(childContext != null && childContext instanceof AbstractEventContext) {
+			NRMuleHeaders childHeaders = MuleUtils.getHeaders(childContext);
+			if(childHeaders == null || childHeaders.isEmpty()) {
+				if(headers != null) {
+					if(headers.isEmpty()) {
+						NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(headers);
+						if(!headers.isEmpty()) {
+							MuleUtils.setHeaders(childContext,headers);
+						}
+					} 
+				}
+			}
 		}
-		expireParent(getParentContext());
+		Weaver.callOriginal();
+	}
+
+	public void success() {
+		if(headers != null && !headers.isEmpty()) {
+			HeaderUtils.acceptHeaders(headers, false);
+			headers.clear();
+			headers = null;
+		}
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			if(parent != null && parent.isPresent()) {
+				expireParent(parent);
+			}
+		} catch (NullPointerException e) {
+		}
 		Weaver.callOriginal();
 	}
 	
 	private void expireParent(Optional<BaseEventContext> parent) {
-		Optional<BaseEventContext> current = parent;
-		while(current.isPresent()) {
-			BaseEventContext parentCtx = current.get();
-			if(parentCtx != null && (AbstractEventContext.class.isInstance(parentCtx))) {
-				AbstractEventContext aCtx = (AbstractEventContext)parentCtx;
-				if(aCtx.token != null) {
-					aCtx.token.expire();
-					aCtx.token = null;
-				}
-				
-			}
-			if(AbstractEventContext.class.isInstance(parentCtx)) {
-				current = ((AbstractEventContext)parentCtx).getParentContext();
-			} else {
-				current = Optional.empty();
+		if(parent.isPresent()) {
+			BaseEventContext root = parent.get().getRootContext();
+			if(root instanceof AbstractEventContext) {
+				((AbstractEventContext)root).headers.clear();
+				((AbstractEventContext)root).headers = null;
 			}
 		}
 	}
 
-	@Trace(async=true,excludeFromTransactionTrace=true)
 	public void success(CoreEvent event) {
-		if(token != null) {
-			token.linkAndExpire();
-			token = null;
+		if(headers != null && !headers.isEmpty()) {
+			HeaderUtils.acceptHeaders(headers, false);
+			headers.clear();
+			headers = null;
 		} else {
 			
 			EventContext ctx = event.getContext();
 			if(AbstractEventContext.class.isInstance(ctx)) {
-				AbstractEventContext bctx = (AbstractEventContext)ctx;
-				if(bctx.token != null) {
-					bctx.token.linkAndExpire();
-					bctx.token = null;
+				if(headers != null && !headers.isEmpty()) {
+					HeaderUtils.acceptHeaders(headers, false);
+					headers.clear();
+					headers = null;
 				}
-				expireParent(bctx.getParentContext());
+				try {
+					Optional<BaseEventContext> parent = getParentContext();
+					if(parent != null && parent.isPresent()) {
+						expireParent(parent);
+					}
+				} catch (NullPointerException e) {
+				}
 			}
 		}
-		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			if(parent != null && parent.isPresent()) {
+				expireParent(parent);
+			}
+		} catch (NullPointerException e) {
+		}
 		Weaver.callOriginal();
 	}
 
-	@Trace(async=true,excludeFromTransactionTrace=true)
 	public Publisher<Void> error(Throwable throwable) {
-		if(token != null) {
-			token.linkAndExpire();
-			token = null;
+		if(headers != null && !headers.isEmpty()) {
+			HeaderUtils.acceptHeaders(headers, false);
+			headers.clear();
+			headers = null;
 		}
-		expireParent(getParentContext());
+		try {
+			Optional<BaseEventContext> parent = getParentContext();
+			if(parent != null && parent.isPresent()) {
+				expireParent(parent);
+			}
+		} catch (NullPointerException e) {
+		}
 		NewRelic.noticeError(throwable);
 		return Weaver.callOriginal();
 	}
 
+	private void setHeaders() {
+		if(headers == null) {
+			headers = MuleUtils.getHeaders(getRootContext());
+			if(headers == null || headers.isEmpty()) {
+				MuleUtils.setHeaders(getRootContext());
+			}
+		}
+	}
 
 }

@@ -33,7 +33,6 @@ class AbstractMessageProcessorChain {
 	public CoreEvent process(final CoreEvent event) {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", event, attributes);
-		NRCoreUtils.recordValue(attributes, "ChainName", chainName);
 		NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","MuleProcessorChain",getClass().getSimpleName(),"process",chainName});
 		CoreEvent retValue = Weaver.callOriginal();
 		NRCoreUtils.recordCoreEvent("Returned", retValue, attributes);

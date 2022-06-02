@@ -7,7 +7,6 @@ import org.mule.runtime.core.internal.event.MuleUtils;
 
 import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 
 public class NREventConsumer implements Consumer<CoreEvent> {
@@ -29,12 +28,10 @@ public class NREventConsumer implements Consumer<CoreEvent> {
 	}
 	
 	@Override
-	@Trace(async=true)
+	@Trace(dispatcher=true)
 	public void accept(CoreEvent event) {
-		Token token = MuleUtils.getToken(event);
-		if(token != null) {
-			token.link();
-		}
+		NRMuleHeaders headers = MuleUtils.getHeaders(event);
+		HeaderUtils.acceptHeaders(headers, true);
 		if(name != null) {
 			NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","EventConsumer",name});
 		}
