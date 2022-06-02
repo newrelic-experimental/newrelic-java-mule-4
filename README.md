@@ -19,6 +19,9 @@
 
 Instrumentation for the Mule 4.x framework.  
 
+## Accouncement
+The original releases of the Mule 4.x instrumentation used the New Relic Java Agent Asynchronous framework to tie the transaction together.  But in some Mule applications it was resulting in some of the asynchronous tokens not being expired and some async segments not being ended.  Because these items are stored in static caches it could consume large amounts of memory and cause problems.  In Version 3.0 we started using distributed tracing headers to tie things together.  This results in more transactions being reported but everything gets tied together in the Distributed Tracing view and it does not cause memory issues.   If the desire is to have one conhesive transaction then use Release V2.0 provided that memory is not being consumed.  If the distributed tracing view is acceptable then use Release V3.0
+
 ## Installation
 
 To install:
