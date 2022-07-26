@@ -191,6 +191,11 @@ subprojects {
     into extDir
   }
 
+  compileJava {
+    dependsOn checkForDependencies
+  }
+
+
   install.doFirst  {
     def extDir = System.getenv("NEW_RELIC_EXTENSIONS_DIR")
      if (extDir == null) {
