@@ -23,7 +23,7 @@ jar {
 }
 
 verifyInstrumentation {
-        passes 'com.mulesoft.agent:mule-agent-web-interface:[2.1.7,)'
-    excludeRegex '.*MULE.*'
-    excludeRegex '.*SNAPSHOT'
+//        passes 'com.mulesoft.agent:mule-agent-web-interface:[2.1.7,)'
+//    excludeRegex '.*MULE.*'
+//    excludeRegex '.*SNAPSHOT'
 }

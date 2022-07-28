@@ -30,3 +30,4 @@ verifyInstrumentation {
         excludeRegex '.*BETA.*'
         excludeRegex '.*RC.*'
 }
+
