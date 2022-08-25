@@ -4,7 +4,7 @@
 apply plugin: 'java'
 
 dependencies {
-   	implementation 'org.mule.services:mule-service-http:1.5.0'
+   	implementation 'org.mule.services:mule-service-http:1.4.1'
     implementation 'org.mule.runtime:mule-service-http-api:4.2.0'
 
 
@@ -27,6 +27,7 @@ verifyInstrumentation {
 	passes("org.mule.services:mule-service-http:[1.4.1,)") {
 	compile 'org.mule.runtime:mule-service-http-api:4.3.0'
 	}
+	exclude 'org.mule.services:mule-service-http:1.5.18'
 	excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT.*'
     excludeRegex '.*-M.*'

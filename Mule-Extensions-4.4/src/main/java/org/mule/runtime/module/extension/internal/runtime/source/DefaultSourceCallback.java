@@ -2,8 +2,8 @@ package org.mule.runtime.module.extension.internal.runtime.source;
 
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.internal.execution.MessageProcessContext;
-import org.mule.runtime.extension.api.runtime.operation.Result;
-import org.mule.runtime.extension.api.runtime.source.SourceCallbackContext;
+import org.mule.sdk.api.runtime.operation.Result;
+import org.mule.sdk.api.runtime.source.SourceCallbackContext;
 
 import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.api.agent.ApplicationNamePriority;
