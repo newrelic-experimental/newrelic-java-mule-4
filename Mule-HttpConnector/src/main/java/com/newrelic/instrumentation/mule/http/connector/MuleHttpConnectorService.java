@@ -18,6 +18,7 @@ public class MuleHttpConnectorService extends AbstractService {
 	
 	
 	public static final String TRACER_FACTORY_NAME = "MuleHttpConnector";
+	public static final String TRACER_FACTORY_NAME2 = "MuleHttpConnector2";
 	
 	public MuleHttpConnectorService() {
 		super("MuleHttpConnectorService");
@@ -48,16 +49,18 @@ public class MuleHttpConnectorService extends AbstractService {
 		if(classTransformerService != null && coreService != null && tracerService != null) {
 			
 			tracerService.registerTracerFactory(TRACER_FACTORY_NAME, new MuleHttpConnectorFactory());
+			tracerService.registerTracerFactory(TRACER_FACTORY_NAME2, new MuleHttpConnectorFactory2());
 			
 			InstrumentationContextManager contextMgr = classTransformerService.getContextManager();
 			InstrumentationProxy proxy = coreService.getInstrumentation();
 			if(contextMgr != null && proxy != null) {
 				MuleHttpConnectorTransformer transformer = new MuleHttpConnectorTransformer(contextMgr, proxy);
 				ClassAndMethodMatcher matcher = new HttpListenerClassMethodMatcher();
-				transformer.addMatcher(matcher);
-				transformer.addMatcher(new HttpRequesterClassMethodMatcher());
-				transformer.addMatcher(new RequestHandlerMatcher());
-				transformer.addMatcher(new ResponseSenderMatcher());
+				transformer.addMatcher(matcher,TRACER_FACTORY_NAME);
+				transformer.addMatcher(new HttpRequesterClassMethodMatcher(),TRACER_FACTORY_NAME);
+				transformer.addMatcher(new RequestHandlerMatcher(),TRACER_FACTORY_NAME);
+				transformer.addMatcher(new ResponseSenderMatcher(),TRACER_FACTORY_NAME);
+				transformer.addMatcher(new HttpResponseReadyCallbackClassMethodMatcher(),TRACER_FACTORY_NAME);
 				NewRelic.getAgent().getLogger().log(Level.INFO, "Mule HttpListener transformer started");
 				return true;
 			}
