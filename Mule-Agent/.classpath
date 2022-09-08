@@ -57,7 +57,7 @@
 	</classpathentry>
 	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.newrelic.agent.java/newrelic-agent/6.0.0/240d18f35d37cd32b0f4c9ac8d93c0fb940a3d69/newrelic-agent-6.0.0-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.newrelic.agent.java/newrelic-agent/6.0.0/e1ff45736ad201ae1ad09b4be76cd9d48a08b322/newrelic-agent-6.0.0.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value="main"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/com/newrelic/agent/java/newrelic-api/6.0.0/newrelic-api-6.0.0-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/com/newrelic/agent/java/newrelic-api/6.0.0/newrelic-api-6.0.0.jar">
@@ -325,33 +325,49 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.newrelic.agent.java/newrelic-agent/6.4.1/2cacff9d1b7162a997d35c22ac310fa506591049/newrelic-agent-6.4.1-sources.jar" kind="lib" path="/Users/dhilpipre/.gradle/caches/modules-2/files-2.1/com.newrelic.agent.java/newrelic-agent/6.4.1/4ad2fa974dec0671190a46a4de97346d402460ea/newrelic-agent-6.4.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="/Users/dhilpipre/.m2/repository/org/nanohttpd/nanohttpd/2.3.1/nanohttpd-2.3.1-sources.jar" kind="lib" path="/Users/dhilpipre/.m2/repository/org/nanohttpd/nanohttpd/2.3.1/nanohttpd-2.3.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="test"/>
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/instrumentation-test-6.0.0-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-bridge-datastore.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-model-6.0.0-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-bridge.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-interfaces-6.0.0-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/newrelic-agent-6.4.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-bridge-6.0.0-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/newrelic-weaver-scala-api.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/agent-bridge-datastore-6.0.0-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/newrelic-weaver-api.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/libs/newrelic-api.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/dhilpipre/Open-Source/newrelic-java-mule-4/Mule-Agent/lib/mule-agent-web-interface-2.4.27.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
