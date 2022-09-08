@@ -30,12 +30,15 @@ To install:
 2. In the New Relic Java directory (the one containing newrelic.jar), create a directory named extensions if it does not already exist.
 3. Copy the downloaded jars into the extensions directory.
 4. Restart the application.
-   
+
 ## Getting Started
 
 Once installed, the instrumentation will track transactions through the various Mule components.
 
 ## Building
+
+Note that the jar necessary for building the Mule-Agent extension are no longer available in Maven.  As a result, the extension has been removed from the build process.  It can be built if you have access to either AnypointStudio or a Mule Server.  Follow the instructions here to build: https://github.com/newrelic-experimental/newrelic-java-mule-4/Mule-Agent-Build.md
+
 
 Building the extension requires that Gradle is installed.
 To build the extension jars from source, follow these steps:
