@@ -19,6 +19,8 @@ Once installed, the instrumentation will track transactions through the various 
 
 ## Building
 
+MuleSoft has removed the necessary jar for building Mule-Agent from the Maven Repository.  The code is still available and it can be built if you have access to Mule AnypointStudio or a Mule Server.   To include it in the build uncomment it from settings.gradle and include the necessary jar file in the lib directory of Mule-Agent according to the instructions in the https://github.com/newrelic-experimental/newrelic-java-mule-4/tree/muleagentfix/Mule-Agent/lib
+
 Building the extension requires that Gradle is installed.
 To build the extension jars from source, follow these steps:
 ### Build single extension
