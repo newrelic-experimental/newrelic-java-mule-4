@@ -1,7 +1,4 @@
 rootProject.name = 'java-instrumentation-template'
-# jars to build Mule-Agent extension are no longer available in Maven.  Follow instructions in Mule-Agent/lib/README to build
-# uncomment to build Mule-Agent
-#iinclude 'Mule-Agent'
 include 'Mule-API'
 include 'Mule-APIKit-Module'
 include 'Mule-APIKit-Module_1.10'
