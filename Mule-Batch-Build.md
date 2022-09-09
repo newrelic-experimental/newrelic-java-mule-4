@@ -1,4 +1,4 @@
-# Building Mule-Agent extension
+# Building Mule-Batch-ee extension
 
 1. Edit settings.gradle and uncomment the line:
 //include 'Mule-Batch-ee'
