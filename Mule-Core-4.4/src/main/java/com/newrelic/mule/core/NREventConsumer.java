@@ -7,7 +7,9 @@ import org.mule.runtime.core.internal.event.MuleUtils;
 
 import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.api.agent.NewRelic;
+import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
+
 
 public class NREventConsumer implements Consumer<CoreEvent> {
 
