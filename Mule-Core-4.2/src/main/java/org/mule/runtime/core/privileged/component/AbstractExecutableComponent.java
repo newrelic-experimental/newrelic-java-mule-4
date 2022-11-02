@@ -11,12 +11,13 @@ import org.mule.runtime.core.api.event.CoreEvent;
 import org.mule.runtime.core.internal.event.MuleUtils;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave(type=MatchType.BaseClass)
 public abstract class AbstractExecutableComponent extends AbstractComponent {
@@ -34,13 +35,11 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 		return f;
 	}
 
-	@Trace(dispatcher=true,async=true)
+	@Trace(dispatcher=true)
 	public CompletableFuture<Event> execute(Event paramEvent) {
 		if(CoreEvent.class.isInstance(paramEvent)) {
-			Token token = MuleUtils.getToken((CoreEvent)paramEvent);
-			if(token != null) {
-				token.link();
-			}
+			NRMuleHeaders headers = MuleUtils.getHeaders((CoreEvent)paramEvent);
+			HeaderUtils.acceptHeaders(headers, false);
 		}
 		CompletableFuture<Event> f = Weaver.callOriginal();
 		ComponentLocation location = getLocation();
@@ -49,7 +48,8 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 			if(locationStr != null && !locationStr.isEmpty()) {
 				TracedMethod traced = NewRelic.getAgent().getTracedMethod();
 				traced.addCustomAttribute("Location", locationStr);
-				traced.setMetricName(new String[] {"Custom","AbstractExecutableComponent",getClass().getSimpleName(),"execute"});
+				traced.setMetricName(new String[] {"Custom","AbstractExecutableComponent",getClass().getSimpleName(),"execute",locationStr});
+				
 			}
 		}
 		return f;

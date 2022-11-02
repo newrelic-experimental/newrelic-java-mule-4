@@ -11,12 +11,12 @@ import org.mule.runtime.core.internal.exception.MessagingException;
 import org.reactivestreams.Publisher;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import com.newrelic.mule.core.NRCoreUtils;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave(type=MatchType.BaseClass)
 public abstract class FlowProcessingTemplate {
@@ -44,18 +44,14 @@ public abstract class FlowProcessingTemplate {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Response", response, attributes);
 		NewRelic.getAgent().getTracedMethod().addCustomAttributes(attributes);
-		if(callback.token == null) {
-			Token token = NewRelic.getAgent().getTransaction().getToken();
-			if(token != null && token.isActive()) {
-				callback.token = token;
-			} else if(token != null) {
-				token.expire();
-				token = null;
-			}
+		if(callback.headers == null || callback.headers.isEmpty()) {
+			callback.headers = new NRMuleHeaders();
+			NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(callback.headers);
 		}
 		Weaver.callOriginal();
 	}
 	
+	@Trace
 	public void sendFailureResponseToClient(MessagingException exception, Map<String, Object> parameters,CompletableCallback<Void> callback) {
 		CoreEvent event = exception.getEvent();
 		Map<String, Object> attributes = new HashMap<String, Object>();
@@ -69,14 +65,9 @@ public abstract class FlowProcessingTemplate {
 		}
 		NRCoreUtils.recordValue(attributes, "Handled", exception.handled());
 		NewRelic.noticeError(exception, attributes);
-		if(callback.token == null) {
-			Token token = NewRelic.getAgent().getTransaction().getToken();
-			if(token != null && token.isActive()) {
-				callback.token = token;
-			} else if(token != null) {
-				token.expire();
-				token = null;
-			}
+		if(callback.headers == null || callback.headers.isEmpty()) {
+			callback.headers = new NRMuleHeaders();
+			NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(callback.headers);
 		}
 		Weaver.callOriginal();
 	}

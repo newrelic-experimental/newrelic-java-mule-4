@@ -17,15 +17,15 @@ public class AbstractProcessingStrategy {
 		if(NREventConsumer.class.isInstance(consumer)) {
 			return consumer;
 		} else {
-			NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create");
-			return consumer.andThen(wrapper);
+			NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create",consumer);
+			return wrapper;
 		}
 	}
 	
 	public void setOnEventConsumer(Consumer<CoreEvent> onEventConsumer)  {
 		if(!NREventConsumer.class.isInstance(onEventConsumer)) {
-			NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create");
-			onEventConsumer =  onEventConsumer.andThen(wrapper);
+			NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create",onEventConsumer);
+			onEventConsumer =  wrapper;
 		}
 		Weaver.callOriginal();
 	}

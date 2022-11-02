@@ -9,6 +9,7 @@ import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.event.CoreEvent;
 
+@SuppressWarnings("deprecation")
 public class NRCoreUtils {
 
 	public static void recordCoreEvent(String prefix, CoreEvent event, Map<String, Object> attributes) {
@@ -48,7 +49,6 @@ public class NRCoreUtils {
 		recordValue(attributes,"Flow-UniqueId",flow.getUniqueIdString());
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void recordMuleContext(MuleContext context, Map<String,Object> attributes) {
 		if (context != null) {
 			recordValue(attributes, "MuleContext-ClusterId", context.getClusterId());

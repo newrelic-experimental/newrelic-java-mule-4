@@ -8,27 +8,26 @@ import org.mule.runtime.core.api.event.CoreEvent;
 import org.mule.runtime.core.internal.event.MuleUtils;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.HeaderUtils;
 import com.newrelic.mule.core.NRCoreUtils;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave
 public abstract class InvokerMessageProcessor {
 	
 	protected Method method = Weaver.callOriginal();
 
-	@Trace(async=true)
+	@Trace(dispatcher=true)
 	public CoreEvent process(final CoreEvent event) {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", event, attributes);
-		Token token = MuleUtils.getToken(event);
+		NRMuleHeaders headers = MuleUtils.getHeaders(event);
+		HeaderUtils.acceptHeaders(headers);
 		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
-		if(token != null) {
-			token.link();
-		}
 		if(method != null) {
 			traced.addCustomAttribute("Method-Class", method.getDeclaringClass().getName());
 			traced.addCustomAttribute("Method-Name", method.getName());

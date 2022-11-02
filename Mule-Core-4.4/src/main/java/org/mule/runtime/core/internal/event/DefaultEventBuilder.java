@@ -7,6 +7,7 @@ import org.mule.runtime.core.privileged.event.BaseEventContext;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave
 public abstract class DefaultEventBuilder {
@@ -20,6 +21,10 @@ public abstract class DefaultEventBuilder {
 		
 		BaseEventContext eventCtx = event.getContext();
 		if(eventCtx != null) {
+			NRMuleHeaders headers = MuleUtils.getHeaders(event);
+			if(headers == null || headers.isEmpty()) {
+				MuleUtils.setHeaders(eventCtx);
+			}
 			ComponentLocation location = eventCtx.getOriginatingLocation();
 			if(location != null) {
 				NewRelic.addCustomParameter("Location", location.getLocation());

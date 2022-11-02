@@ -22,6 +22,7 @@ public abstract class Sink {
 	@Trace(async=true,excludeFromTransactionTrace=true)
 	public void accept(final CoreEvent event) {
 		NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","Sink",getClass().getSimpleName(),"accept"});
+		
 		Weaver.callOriginal();
 	}
 }

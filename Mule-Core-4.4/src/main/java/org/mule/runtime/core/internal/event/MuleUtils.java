@@ -2,38 +2,61 @@ package org.mule.runtime.core.internal.event;
 
 import org.mule.runtime.api.event.EventContext;
 import org.mule.runtime.core.api.event.CoreEvent;
-import org.mule.runtime.core.internal.message.InternalEvent;
+import org.mule.runtime.core.privileged.event.BaseEventContext;
 
-import com.newrelic.agent.bridge.NoOpToken;
-import com.newrelic.api.agent.Token;
+import com.newrelic.api.agent.NewRelic;
+import com.newrelic.mule.core.NRMuleHeaders;
 
 public class MuleUtils {
 
-	public static Token getToken(CoreEvent event) {
+	public static NRMuleHeaders getHeaders(CoreEvent event) {
 		EventContext context = event.getContext();
+		if(context != null) {
+			return getHeaders(context);
+		}
+		
+		return null;
+	}
+
+	
+	public static NRMuleHeaders getHeaders(EventContext context) {
 		if(AbstractEventContext.class.isInstance(context)) {
-			return ((AbstractEventContext)context).token;
+			AbstractEventContext tmpEventCtx = (AbstractEventContext)context;
+			NRMuleHeaders headers = tmpEventCtx.headers;
+			if(headers != null) return headers;
+			BaseEventContext rootContext = tmpEventCtx.getRootContext();
+			if(rootContext != tmpEventCtx) {
+				return getHeaders(rootContext);
+			}
 		}
-		if(BaseEventDecorator.class.isInstance(event)) {
-			BaseEventDecorator bEvent = (BaseEventDecorator)event;
-			InternalEvent tmpEvent = bEvent.getEvent();
-			return getToken(tmpEvent);
-		}
+		
 		return null;
 	}
 	
-	public static void setToken(CoreEvent event,Token token) {
-		
-		if(NoOpToken.class.isInstance(token)) {
-			return;
-		}
-		EventContext context = event.getContext();
-		if(AbstractEventContext.class.isInstance(context)) {
-			AbstractEventContext dEvent = (AbstractEventContext)context;
-			if(dEvent.token == null) {
-				dEvent.token = token;
+	public static void setHeaders(EventContext context) {
+		if(context instanceof AbstractEventContext) {
+			AbstractEventContext eventCtx = (AbstractEventContext)context;
+			if(eventCtx.headers == null) {
+				BaseEventContext rootContext = eventCtx.getRootContext();
+				if(rootContext != eventCtx) {
+					setHeaders(rootContext);
+				} else {
+					eventCtx.headers = new NRMuleHeaders();
+					NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(eventCtx.headers);	
+				}
+			} else if(eventCtx.headers.isEmpty()) {
+				NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(eventCtx.headers);
 			}
 		}
-			
+		
+	}
+	
+	public static void setHeaders(EventContext context, NRMuleHeaders headers) {
+		if (context instanceof BaseEventContext) {
+			BaseEventContext rootContext = ((BaseEventContext)context).getRootContext();
+			if (rootContext instanceof AbstractEventContext) {
+				((AbstractEventContext) rootContext).headers = headers;
+			} 
+		}
 	}
 }

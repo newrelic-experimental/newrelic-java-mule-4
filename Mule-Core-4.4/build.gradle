@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 // Build.gradle generated for instrumentation module Mule-Core-4.3
+=======
+// Build.gradle generated for instrumentation module Mule-Core-4.4
+>>>>>>> main
 
 apply plugin: 'java'
 
@@ -7,14 +11,23 @@ dependencies {
    implementation 'org.mule.runtime:mule-core:4.4.0'
 
    // New Relic Java Agent dependencies
+<<<<<<< HEAD
    implementation 'com.newrelic.agent.java:newrelic-agent:6.4.1'
    implementation 'com.newrelic.agent.java:newrelic-api:6.4.1'
+=======
+   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.0'
+   implementation 'com.newrelic.agent.java:newrelic-api:6.4.0'
+>>>>>>> main
    implementation fileTree(include: ['*.jar'], dir: '../libs')
 }
 
 jar {
   manifest {
+<<<<<<< HEAD
     attributes 'Implementation-Title': 'com.newrelic.instrumentation.Mule-Core-4.4'
+=======
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.Mule-Core-4.4.0'
+>>>>>>> main
     attributes 'Implementation-Vendor': 'New Relic'
     attributes 'Implementation-Vendor-Id': 'com.newrelic'
     attributes 'Implementation-Version': 1.0
@@ -22,8 +35,15 @@ jar {
 }
 
 verifyInstrumentation {
+<<<<<<< HEAD
     passes 'org.mule.runtime:mule-core:[4.4.0,)'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex 'org.mule.runtime:mule-core:4.5.0-2022.*'
 }
+=======
+    passes 'org.mule.runtime:mule-core:(4.3.0,)'
+    excludeRegex '.*MULE.*'
+    excludeRegex '.*SNAPSHOT'
+}
+>>>>>>> main
