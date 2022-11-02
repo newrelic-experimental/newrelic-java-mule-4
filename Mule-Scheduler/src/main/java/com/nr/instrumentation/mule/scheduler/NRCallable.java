@@ -26,6 +26,7 @@ public class NRCallable<V> implements Callable<V> {
 	@Trace(dispatcher = true)
 	public V call() throws Exception {
 		HeaderUtils.acceptHeaders(headers);
+		headers = null;
 		if(delegate != null) {
 			return delegate.call();
 		}

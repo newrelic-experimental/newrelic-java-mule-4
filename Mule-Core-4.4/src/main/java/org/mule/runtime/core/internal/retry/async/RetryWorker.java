@@ -27,7 +27,7 @@ public abstract class RetryWorker {
 	
 	@Trace(dispatcher=true)
 	public void run() {
-		HeaderUtils.acceptHeaders(headers,false);
+		HeaderUtils.acceptHeaders(headers);
 		Weaver.callOriginal();
 	}
 

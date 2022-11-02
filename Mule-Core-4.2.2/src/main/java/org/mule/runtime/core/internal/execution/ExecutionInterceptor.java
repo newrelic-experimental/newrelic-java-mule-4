@@ -15,7 +15,7 @@ public abstract class ExecutionInterceptor<T> {
 	@Trace
 	public T execute(ExecutionCallback<T> callback, ExecutionContext executionContext) {
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","ExecutionInterceptor",getClass().getName(),"execute");
-		HeaderUtils.acceptHeaders(callback.headers, false);
+		HeaderUtils.acceptHeaders(callback.headers);
 		return Weaver.callOriginal();
 	}
 }

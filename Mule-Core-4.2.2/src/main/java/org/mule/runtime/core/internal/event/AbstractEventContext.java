@@ -51,7 +51,7 @@ abstract class AbstractEventContext implements BaseEventContext {
 
 	public void success() {
 		if(headers != null && !headers.isEmpty()) {
-			HeaderUtils.acceptHeaders(headers, false);
+			HeaderUtils.acceptHeaders(headers);
 			headers.clear();
 			headers = null;
 		}
@@ -77,7 +77,7 @@ abstract class AbstractEventContext implements BaseEventContext {
 
 	public void success(CoreEvent event) {
 		if(headers != null && !headers.isEmpty()) {
-			HeaderUtils.acceptHeaders(headers, false);
+			HeaderUtils.acceptHeaders(headers);
 			headers.clear();
 			headers = null;
 		} else {
@@ -86,7 +86,7 @@ abstract class AbstractEventContext implements BaseEventContext {
 			if(AbstractEventContext.class.isInstance(ctx)) {
 				AbstractEventContext bctx = (AbstractEventContext)ctx;
 				if(headers != null && !headers.isEmpty()) {
-					HeaderUtils.acceptHeaders(headers, false);
+					HeaderUtils.acceptHeaders(headers);
 					headers.clear();
 					headers = null;
 				}
@@ -105,7 +105,7 @@ abstract class AbstractEventContext implements BaseEventContext {
 
 	public Publisher<Void> error(Throwable throwable) {
 		if(headers != null && !headers.isEmpty()) {
-			HeaderUtils.acceptHeaders(headers, false);
+			HeaderUtils.acceptHeaders(headers);
 			headers.clear();
 			headers = null;
 		}

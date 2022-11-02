@@ -17,7 +17,6 @@ public class HeaderUtils {
 					return;
 				}
 			}
-			NewRelic.getAgent().getTransaction().ignore();
 		}		
 	}
 

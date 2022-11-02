@@ -78,7 +78,7 @@ public abstract class PhaseExecutionEngine {
 
 		@Trace(dispatcher=true)
 		private void processEndPhase() {
-			HeaderUtils.acceptHeaders(headers, true);
+			HeaderUtils.acceptHeaders(headers);
 			if(name != null) {
 				NewRelic.getAgent().getTracedMethod().setMetricName("Custom","PhaseExecution","EndPhase",name);
 			}

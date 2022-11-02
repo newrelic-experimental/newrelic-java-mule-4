@@ -9,6 +9,7 @@ import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.nr.instrumentation.mule.extensions.NRBiConsumer;
 
 @Weave
 public abstract class DefaultExtensionsClient {
@@ -22,6 +23,8 @@ public abstract class DefaultExtensionsClient {
 	@Trace(dispatcher=true)
 	public <T, A> CompletableFuture<Result<T, A>> executeAsync(String extension, String operation,OperationParameters parameters) {
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","DefaultExtensionsClient","executeAsync",extension,operation);
-		return Weaver.callOriginal();
+		CompletableFuture<Result<T, A>> result = Weaver.callOriginal();
+		
+		return result.whenComplete(new NRBiConsumer<>("Custom/DefaultExtensionsClient/executeAsync/"+extension+"/"+operation));
 	}
 }

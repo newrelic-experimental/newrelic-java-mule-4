@@ -38,7 +38,7 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 	public CompletableFuture<Event> execute(Event paramEvent) {
 		if(CoreEvent.class.isInstance(paramEvent)) {
 			NRMuleHeaders headers = MuleUtils.getHeaders((CoreEvent)paramEvent);
-			HeaderUtils.acceptHeaders(headers, false);
+			HeaderUtils.acceptHeaders(headers);
 		}
 		CompletableFuture<Event> f = Weaver.callOriginal();
 		ComponentLocation location = getLocation();

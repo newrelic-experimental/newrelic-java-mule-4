@@ -17,7 +17,8 @@ public abstract class ExecutionCallback<T> {
 
 	@Trace(dispatcher=true)
 	public T process() {
-		HeaderUtils.acceptHeaders(headers, true);
+		HeaderUtils.acceptHeaders(headers);
+		headers = null;
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","ExecutionCallback",getClass().getName());
 		return Weaver.callOriginal();
 	}

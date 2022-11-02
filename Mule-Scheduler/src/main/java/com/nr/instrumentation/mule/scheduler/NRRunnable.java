@@ -13,6 +13,7 @@ public class NRRunnable implements Runnable {
 	
 	public NRRunnable(Runnable d, NRMuleHeaders h) {
 		delegate = d;
+		headers = h;
 		if(!isTransformed) {
 			isTransformed = true;
 			AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
@@ -23,6 +24,7 @@ public class NRRunnable implements Runnable {
 	@Trace(dispatcher=true)
 	public void run() {
 		HeaderUtils.acceptHeaders(headers);
+		headers = null;
 		if(delegate != null) {
 			delegate.run();
 		}

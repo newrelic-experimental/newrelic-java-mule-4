@@ -31,7 +31,7 @@ public class NREventConsumer implements Consumer<CoreEvent> {
 	@Trace(dispatcher=true)
 	public void accept(CoreEvent event) {
 		NRMuleHeaders headers = MuleUtils.getHeaders(event);
-		HeaderUtils.acceptHeaders(headers, true);
+		HeaderUtils.acceptHeaders(headers);
 		if(name != null) {
 			NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","EventConsumer",name});
 		}

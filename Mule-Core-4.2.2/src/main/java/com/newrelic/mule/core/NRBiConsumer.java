@@ -29,7 +29,8 @@ public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
 		if(name != null && !name.isEmpty()) {
 			NewRelic.getAgent().getTracedMethod().setMetricName("Custom","CompletionHandler",name);
 		}
-		HeaderUtils.acceptHeaders(headers, true);
+		HeaderUtils.acceptHeaders(headers);
+		headers = null;
 	}
 
 }

@@ -26,7 +26,7 @@ public abstract class InvokerMessageProcessor {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", event, attributes);
 		NRMuleHeaders headers = MuleUtils.getHeaders(event);
-		HeaderUtils.acceptHeaders(headers, true);
+		HeaderUtils.acceptHeaders(headers);
 		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
 		if(method != null) {
 			traced.addCustomAttribute("Method-Class", method.getDeclaringClass().getName());

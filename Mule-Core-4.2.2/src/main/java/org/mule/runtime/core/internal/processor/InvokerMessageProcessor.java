@@ -28,7 +28,7 @@ public abstract class InvokerMessageProcessor {
 			NRCoreUtils.recordValue(attributes, "Method", method.getName());
 		}
 		NRMuleHeaders headers = MuleUtils.getHeaders(event);
-		HeaderUtils.acceptHeaders(headers, true);
+		HeaderUtils.acceptHeaders(headers);
 		NewRelic.getAgent().getTracedMethod().setMetricName(new String[] {"Custom","InvokerMessageProcessor","process",method.getDeclaringClass().getName(),method.getName()});
 		CoreEvent returnedEvent = Weaver.callOriginal();
 		NRCoreUtils.recordCoreEvent("Returned", returnedEvent, attributes);

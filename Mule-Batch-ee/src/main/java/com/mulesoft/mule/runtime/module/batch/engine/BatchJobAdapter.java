@@ -34,6 +34,9 @@ public abstract class BatchJobAdapter {
 				NRRunnable afterRunnable = new NRRunnable(before, t, "After-Work");
 				after = afterRunnable;
 			}
+		} else if(t != null) {
+			t.expire();
+			t = null;
 		}
 		Weaver.callOriginal();
 	}

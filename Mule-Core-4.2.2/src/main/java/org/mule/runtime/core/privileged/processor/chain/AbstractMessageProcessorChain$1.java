@@ -18,7 +18,7 @@ class AbstractMessageProcessorChain$1 {
 	@Trace(dispatcher=true,excludeFromTransactionTrace=true)
 	public void onNext(final CoreEvent event) {
 		NRMuleHeaders headers = MuleUtils.getHeaders(event);
-		HeaderUtils.acceptHeaders(headers, true);
+		HeaderUtils.acceptHeaders(headers);
 		
 		Weaver.callOriginal();
 	}

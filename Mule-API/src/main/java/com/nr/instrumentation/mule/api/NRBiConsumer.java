@@ -18,6 +18,7 @@ public class NRBiConsumer<T> implements BiConsumer<T, Throwable> {
 	public void accept(T t, Throwable u) {
 		if(segment != null) {
 			segment.end();
+			segment = null;
 		}
 		if(u != null) {
 			NewRelic.noticeError(u);

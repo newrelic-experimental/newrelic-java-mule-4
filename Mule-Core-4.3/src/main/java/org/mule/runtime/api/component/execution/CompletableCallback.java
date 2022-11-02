@@ -17,14 +17,16 @@ public abstract class CompletableCallback<T> {
 	
 	@Trace
 	public void complete(T var1) {
-		HeaderUtils.acceptHeaders(headers, false);
+		HeaderUtils.acceptHeaders(headers);
+		headers = null;
 		Weaver.callOriginal();
 	}
 
 	@Trace
 	public void error(Throwable var1) {
 		NewRelic.noticeError(var1);
-		HeaderUtils.acceptHeaders(headers, false);
+		HeaderUtils.acceptHeaders(headers);
+		headers = null;
 		Weaver.callOriginal();
 	}
 
