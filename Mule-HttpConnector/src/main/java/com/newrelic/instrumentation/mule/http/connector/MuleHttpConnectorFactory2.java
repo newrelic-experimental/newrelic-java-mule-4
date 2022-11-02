@@ -14,7 +14,8 @@ import com.newrelic.agent.tracers.metricname.SimpleMetricNameFormat;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Token;
 
-public class MuleHttpConnectorFactory extends AbstractTracerFactory {
+public class MuleHttpConnectorFactory2 extends AbstractTracerFactory {
+
 
 	@Override
 	public Tracer doGetTracer(Transaction transaction, ClassMethodSignature sig, Object object, Object[] args) {
@@ -23,7 +24,7 @@ public class MuleHttpConnectorFactory extends AbstractTracerFactory {
 		MetricNameFormat format = null;
 		String methodName = sig.getMethodName();
 		Token token = null;
-		NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory.getTracer({0},{1},{2},{3})", transaction,sig,object,args);
+		NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory2.getTracer({0},{1},{2},{3})", transaction,sig,object,args);
 		
 		if(classname.equals(HttpListenerClassMethodMatcher.HTTPLISTENER)) {
 			format = new SimpleMetricNameFormat("Custom/HttpListener/"+methodName);
@@ -42,28 +43,24 @@ public class MuleHttpConnectorFactory extends AbstractTracerFactory {
 				if(args.length > 1) {
 					Integer hash = args[1].hashCode();
 					boolean b = TracerUtils.addToken(hash);
-					
-						if(b) {
-							NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory created token for object with hash {0} and object {1}",hash,args[1]);
-						} else {
-							NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory did not create token for object with hash {0} and object {1}",hash, args[1]);
-						}
-					
+					if(b) {
+						NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory2 created token for object with hash {0}", hash);
+					}
 				}
 			} else if(methodName.endsWith(HttpResponseReadyCallbackClassMethodMatcher.RESPONSE_READY)) {
-				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory creating tracer for HttpResponseReadyCallback.responseReady, object: {0}", object);
+				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory2 creating tracer for HttpResponseReadyCallback.responseReady, object: {0}", object);
 				
 				format = new SimpleMetricNameFormat("Custom/HttpResponseReadyCallback/responseReady");
 				Integer hash = object.hashCode();
 				token = TracerUtils.getToken(hash);
-				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory retrieved token {0} and object with hash {1} and method responseReady", token, hash);
+				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory2 retrieved token {0} and object with hash {1} and method responseReady", token, hash);
 
 			} else if(methodName.equals(HttpResponseReadyCallbackClassMethodMatcher.START_RESPONSE)) {
-				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory creating tracer for HttpResponseReadyCallback.startResponse, object: {0}", object);
+				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory2 creating tracer for HttpResponseReadyCallback.startResponse, object: {0}", object);
 				format = new SimpleMetricNameFormat("Custom/HttpResponseReadyCallback/startResponse");
 				Integer hash = object.hashCode();
 				token = TracerUtils.getToken(hash);
-				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory retrieved token {0} and object with hash {1} and method startResponse", token, hash);
+				NewRelic.getAgent().getLogger().log(Level.FINE, "MuleHttpConnectorFactory2 retrieved token {0} and object with hash {1} and method startResponse", token, hash);
 
 			}
 		}

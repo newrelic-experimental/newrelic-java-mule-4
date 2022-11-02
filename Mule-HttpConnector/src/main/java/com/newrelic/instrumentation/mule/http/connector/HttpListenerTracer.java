@@ -12,6 +12,8 @@ import com.newrelic.agent.bridge.TracedMethod;
 import com.newrelic.agent.config.TransactionTracerConfig;
 import com.newrelic.agent.database.SqlObfuscator;
 import com.newrelic.agent.deps.org.objectweb.asm.Opcodes;
+import com.newrelic.agent.dispatchers.Dispatcher;
+import com.newrelic.agent.dispatchers.OtherDispatcher;
 import com.newrelic.agent.stats.ResponseTimeStats;
 import com.newrelic.agent.stats.TransactionStats;
 import com.newrelic.agent.trace.TransactionGuidFactory;
@@ -22,11 +24,13 @@ import com.newrelic.agent.tracers.DefaultTracer;
 import com.newrelic.agent.tracers.SkipTracer;
 import com.newrelic.agent.tracers.Tracer;
 import com.newrelic.agent.tracers.TracerFlags;
+import com.newrelic.agent.tracers.TransactionActivityInitiator;
 import com.newrelic.agent.tracers.metricname.MetricNameFormat;
 import com.newrelic.agent.tracers.metricname.SimpleMetricNameFormat;
 import com.newrelic.agent.util.Strings;
+import com.newrelic.api.agent.Token;
 
-public class HttpListenerTracer extends AbstractTracer {
+public class HttpListenerTracer extends AbstractTracer implements TransactionActivityInitiator {
 
 	public static final MetricNameFormat NULL_METRIC_NAME_FORMATTER = new SimpleMetricNameFormat(null);
 
@@ -36,12 +40,15 @@ public class HttpListenerTracer extends AbstractTracer {
 	private MetricNameFormat metricNameFormat;
 	private int childCount = 0;
 	private boolean isParent;
+
 	private Tracer parentTracer;
 	private byte tracerFlags;
 	private String guid;
 	private final ClassMethodSignature classMethodSignature;
 	private long endTime;
 	private Object invocationTarget;
+	private boolean isAsync = false;
+	private Token token = null;
 
 	private boolean childHasStackTrace;
 
@@ -54,6 +61,7 @@ public class HttpListenerTracer extends AbstractTracer {
 		startTime = System.nanoTime();
 		metricNameFormat = format;
 		guid = TransactionGuidFactory.generate16CharGuid();
+		tracerFlags = (byte) tracerflags;
 		classMethodSignature = sig;
 		invocationTarget = object;
 		parentTracer = transaction.getTransactionActivity().getLastTracer();
@@ -61,6 +69,10 @@ public class HttpListenerTracer extends AbstractTracer {
 
 	public HttpListenerTracer(Transaction transaction, ClassMethodSignature sig, Object object) {
 		this(transaction,sig,object,new SimpleMetricNameFormat("Custom/"+object.getClass().getSimpleName()+"/"+sig.getMethodName()),DefaultTracer.DEFAULT_TRACER_FLAGS);
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
 	}
 
 	@Override
@@ -132,6 +144,16 @@ public class HttpListenerTracer extends AbstractTracer {
 			}
 		}
 	}
+	
+	public void setAsync(boolean isAsync) {
+		this.isAsync = isAsync;
+	}
+
+	@Override
+	public boolean isAsync() {
+		return isAsync;
+	}
+
 
 	@Override
 	protected final Object getInvocationTarget() {
@@ -240,6 +262,7 @@ public class HttpListenerTracer extends AbstractTracer {
 	@Override
 	public void finish(int opcode, Object returnValue) {
 		Agent.LOG.log(Level.FINE, "Call to HttpListenerTracer.finish({0},{1})", opcode,returnValue);
+		
 		endTime = System.nanoTime();
 		TransactionActivity txa = getTransactionActivity();
 		if (txa == null) {
@@ -259,6 +282,10 @@ public class HttpListenerTracer extends AbstractTracer {
 	}
 
 	public void performFinishWork(long finishTime, int opcode, Object returnValue) {
+		if(token != null) {
+			token.linkAndExpire();
+			token = null;
+		}
 		// Believe it or not, it's possible to get a negative value!
 		// (At least on some old, broken Linux kernels is is.)
 		duration = Math.max(0, finishTime - getStartTime());
@@ -416,6 +443,12 @@ public class HttpListenerTracer extends AbstractTracer {
 	@Override
 	public ClassMethodSignature getClassMethodSignature() {
 		return classMethodSignature;
+	}
+
+	@Override
+	public Dispatcher createDispatcher() {
+		// TODO Auto-generated method stub
+		return new OtherDispatcher(getTransaction(), metricNameFormat);
 	}
 
 }
