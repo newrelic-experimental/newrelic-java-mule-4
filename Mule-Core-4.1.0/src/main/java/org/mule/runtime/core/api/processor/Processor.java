@@ -12,6 +12,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.MuleReactorUtils;
 import com.newrelic.mule.core.NRCoreUtils;
 
 @Weave(type=MatchType.Interface)
@@ -21,9 +22,9 @@ public abstract class Processor {
 	public CoreEvent process(CoreEvent event) {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", event, attributes);
-//		if(!MuleReactorUtils.initialized) {
-//			MuleReactorUtils.init();
-//		}
+		if(!MuleReactorUtils.initialized) {
+			MuleReactorUtils.init();
+		}
 		Token token = MuleUtils.getToken(event);
 		if(token != null) {
 			token.link();
