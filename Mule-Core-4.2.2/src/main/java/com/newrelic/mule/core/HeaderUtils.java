@@ -7,7 +7,7 @@ import com.newrelic.api.agent.TransportType;
 
 public class HeaderUtils {
 
-	public static void acceptHeaders(NRMuleHeaders headers/*, boolean ignore*/) {
+	public static void acceptHeaders(NRMuleHeaders headers) {
 		if(headers != null && !headers.isEmpty()) {
 			Transaction tx = Transaction.getTransaction(false);
 			if(tx != null) {
@@ -17,9 +17,6 @@ public class HeaderUtils {
 					return;
 				}
 			}
-//			if(ignore) {
-//				NewRelic.getAgent().getTransaction().ignore();
-//			}
 		}		
 	}
 }

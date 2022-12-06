@@ -5,27 +5,29 @@ import java.util.Map;
 
 import org.mule.runtime.core.api.construct.FlowConstruct;
 
-import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Trace;
-import com.newrelic.api.agent.TracedMethod;
+import com.newrelic.agent.tracers.ClassMethodSignature;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.NRCoreUtils;
+import com.newrelic.mule.core4_4.NRCoreUtils;
+import com.newrelic.mule.core4_4.tracers.TracerUtils;
 
 @Weave
 public class MuleMessageProcessingManager {
 
-	@Trace
 	public void processMessage(FlowProcessTemplate messageProcessTemplate, MessageProcessContext messageProcessContext) {
-		
+		String[] names;
+		Map<String, Object> attributes = new HashMap<>();
 		FlowConstruct flow = messageProcessContext.getFlowConstruct();
-		if(flow != null) {
-			Map<String, Object> attributes = new HashMap<String, Object>();
-			NRCoreUtils.recordFlowConstruct(flow , attributes);
-			TracedMethod traced = NewRelic.getAgent().getTracedMethod();
-			traced.addCustomAttributes(attributes);
-			traced.setMetricName(new String[] {"Custom","MuleMessageProcessingManager","processMessage",messageProcessContext.getFlowConstruct().getName()});
-		}
+		if (flow != null) {
+			NRCoreUtils.recordFlowConstruct(flow, attributes);
+			names = new String[] { "Custom", "MuleMessageProcessingManager", "processMessage", flow.getName() };
+		} else {
+			names = new String[] { "Custom", "MuleMessageProcessingManager", "processMessage", "UnknownFlow" };
+		} 
+		long start = System.nanoTime();
 		Weaver.callOriginal();
+		long end = System.nanoTime();
+		ClassMethodSignature sig = new ClassMethodSignature(getClass().getName(), "sendFailureResponseToClient", TracerUtils.getMethodDesc(getClass(), "sendFailureResponseToClient"));
+		TracerUtils.processTracer(this, start, end, sig, attributes, names);
 	}
 }

@@ -5,7 +5,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.NRMuleHeaders;
+import com.newrelic.mule.core4_3.NRMuleHeaders;
 
 @Weave(type=MatchType.Interface)
 public abstract class ExecutionTemplate<T> {

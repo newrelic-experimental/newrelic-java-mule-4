@@ -1,6 +1,5 @@
 package com.newrelic.instrumentation.mule.http.connector;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import com.newrelic.agent.Transaction;

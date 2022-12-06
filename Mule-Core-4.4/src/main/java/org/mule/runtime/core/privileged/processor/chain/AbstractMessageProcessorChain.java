@@ -16,7 +16,7 @@ import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.NRCoreUtils;
+import com.newrelic.mule.core4_4.NRCoreUtils;
 
 @Weave(type=MatchType.BaseClass)
 class AbstractMessageProcessorChain {

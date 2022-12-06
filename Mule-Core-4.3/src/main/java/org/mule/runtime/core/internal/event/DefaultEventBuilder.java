@@ -7,7 +7,7 @@ import org.mule.runtime.core.privileged.event.BaseEventContext;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.NRMuleHeaders;
+import com.newrelic.mule.core4_3.NRMuleHeaders;
 
 @Weave
 public abstract class DefaultEventBuilder {

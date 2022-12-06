@@ -13,8 +13,8 @@ import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.HeaderUtils;
-import com.newrelic.mule.core.NRMuleHeaders;
+import com.newrelic.mule.core4_4.HeaderUtils;
+import com.newrelic.mule.core4_4.NRMuleHeaders;
 
 @Weave
 abstract class AbstractEventContext implements BaseEventContext {

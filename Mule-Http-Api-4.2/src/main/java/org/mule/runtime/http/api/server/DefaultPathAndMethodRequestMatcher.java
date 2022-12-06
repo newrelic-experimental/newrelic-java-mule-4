@@ -18,7 +18,7 @@ class DefaultPathAndMethodRequestMatcher {
 		boolean result = Weaver.callOriginal();
 		if(result) {
 			String pathToReport = path != null && !path.isEmpty() ? path : "RootPath";
-			NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.FRAMEWORK_LOW, true, "Grizzly", pathToReport);
+			NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.FRAMEWORK_LOW, true, "GrizzlyMatcher", pathToReport);
 		}
 		return result;
 	}

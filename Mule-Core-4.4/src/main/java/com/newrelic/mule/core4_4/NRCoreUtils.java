@@ -1,4 +1,4 @@
-package com.newrelic.mule.core;
+package com.newrelic.mule.core4_4;
 
 import java.util.Map;
 

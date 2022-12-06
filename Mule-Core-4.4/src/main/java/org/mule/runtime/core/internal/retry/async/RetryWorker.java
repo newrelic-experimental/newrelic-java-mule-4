@@ -11,8 +11,8 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.HeaderUtils;
-import com.newrelic.mule.core.NRMuleHeaders;
+import com.newrelic.mule.core4_4.HeaderUtils;
+import com.newrelic.mule.core4_4.NRMuleHeaders;
 
 @Weave
 public abstract class RetryWorker {
@@ -28,6 +28,7 @@ public abstract class RetryWorker {
 	@Trace(dispatcher=true)
 	public void run() {
 		HeaderUtils.acceptHeaders(headers);
+		headers = null;
 		Weaver.callOriginal();
 	}
 

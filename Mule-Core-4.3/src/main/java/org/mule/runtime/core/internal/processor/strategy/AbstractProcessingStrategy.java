@@ -7,7 +7,7 @@ import org.mule.runtime.core.api.event.CoreEvent;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.NREventConsumer;
+import com.newrelic.mule.core4_3.NREventConsumer;
 
 @Weave(type=MatchType.BaseClass)
 public class AbstractProcessingStrategy {

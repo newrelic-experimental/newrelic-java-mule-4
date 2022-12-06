@@ -2,7 +2,6 @@ package com.newrelic.instrumentation.mule.http.connector;
 
 import com.newrelic.agent.instrumentation.classmatchers.ClassAndMethodMatcher;
 import com.newrelic.agent.instrumentation.classmatchers.ClassMatcher;
-import com.newrelic.agent.instrumentation.classmatchers.InterfaceMatcher;
 import com.newrelic.agent.instrumentation.methodmatchers.MethodMatcher;
 
 public class HttpResponseReadyCallbackClassMethodMatcher implements ClassAndMethodMatcher {

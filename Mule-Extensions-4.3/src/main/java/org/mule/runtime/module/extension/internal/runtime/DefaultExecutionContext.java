@@ -11,7 +11,6 @@ import com.newrelic.api.agent.weaver.Weaver;
 
 @Weave
 public abstract class DefaultExecutionContext<M extends ComponentModel> implements ExecutionContextAdapter<M>  {
-
 	
 	@Trace(dispatcher=true)
 	public void changeEvent(CoreEvent updated) {

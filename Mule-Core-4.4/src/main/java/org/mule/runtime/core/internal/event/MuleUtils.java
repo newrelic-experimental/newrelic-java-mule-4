@@ -5,7 +5,7 @@ import org.mule.runtime.core.api.event.CoreEvent;
 import org.mule.runtime.core.privileged.event.BaseEventContext;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.mule.core.NRMuleHeaders;
+import com.newrelic.mule.core4_4.NRMuleHeaders;
 
 public class MuleUtils {
 

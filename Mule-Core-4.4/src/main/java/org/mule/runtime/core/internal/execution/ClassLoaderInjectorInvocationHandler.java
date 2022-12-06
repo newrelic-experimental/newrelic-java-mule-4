@@ -4,17 +4,16 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Trace;
+import com.newrelic.agent.tracers.ClassMethodSignature;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core4_4.tracers.TracerUtils;
 
 @Weave
 public abstract class ClassLoaderInjectorInvocationHandler {
 	
 	private final Object delegate = Weaver.callOriginal();
 	
-	@Trace
 	public Object invoke(Object proxy, Method method, Object[] args) {
 		List<String> names = new ArrayList<String>();
 		names.add("Custom");
@@ -41,7 +40,11 @@ public abstract class ClassLoaderInjectorInvocationHandler {
 		}
 		String[] namesArray = new String[names.size()];
 		names.toArray(namesArray);
-		NewRelic.getAgent().getTracedMethod().setMetricName(namesArray);
-		return Weaver.callOriginal();
+		long start = System.nanoTime();
+		Object result = Weaver.callOriginal();
+		long end = System.nanoTime();
+		ClassMethodSignature sig = new ClassMethodSignature(getClass().getName(), "invoke", TracerUtils.getMethodDesc(getClass(), "invoke"));
+		TracerUtils.processTracer(this, start, end, sig, null, namesArray);
+		return result;
 	}
 }

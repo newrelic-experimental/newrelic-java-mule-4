@@ -50,7 +50,7 @@ public abstract class GrizzlyRequestDispatcherFilter {
 					if(requestURI.isEmpty()) {
 						requestURI = "Root";
 					}
-					NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.REQUEST_URI, true, "Grizzly", "GrizzlyDispatcher");
+					NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.REQUEST_URI, true, "Grizzly", "GrizzlyDispatcher",requestURI);
 				}
 				InboundRequest wrapper = new InboundRequest(request);
 				txn.setWebRequest(wrapper);

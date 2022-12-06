@@ -15,8 +15,8 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.MatchType;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.mule.core.HeaderUtils;
-import com.newrelic.mule.core.NRMuleHeaders;
+import com.newrelic.mule.core4_4.HeaderUtils;
+import com.newrelic.mule.core4_4.NRMuleHeaders;
 
 @Weave(type=MatchType.BaseClass)
 public abstract class AbstractExecutableComponent extends AbstractComponent {
