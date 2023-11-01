@@ -1,10 +1,12 @@
 
-// Build.gradle generated for instrumentation module Mule-Core-4.4
+// Build.gradle generated for instrumentation module Mule-Extensions-4.5
 
 apply plugin: 'java'
 
 dependencies {
-   implementation 'org.mule.runtime:mule-core:4.4.0'
+    implementation 'org.mule.runtime:mule-module-extensions-support:4.5.0-20221117'
+
+    
 
    // New Relic Labs Java Agent dependencies
    implementation 'com.newrelic.agent.java:newrelic-agent:6.4.1'
@@ -14,7 +16,7 @@ dependencies {
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Core-4.4.0'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Extensions-4.5'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -22,8 +24,8 @@ jar {
 }
 
 verifyInstrumentation {
-    passes 'org.mule.runtime:mule-core:[4.4.0,4.5.0)'
+	passes 'org.mule.runtime:mule-module-extensions-support:[4.5.0-2022111,)'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
-    excludeRegex 'org.mule.runtime:mule-core:4.5.0-2022.*'
+  
 }
