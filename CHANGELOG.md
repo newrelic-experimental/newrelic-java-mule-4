@@ -1,3 +1,8 @@
+## Version: [v3.1.1](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.1.1) | Created: 2023-11-01
+### Features
+- Added support for mule 4.5 and above
+
+
 ## Version: [v3.0.1](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.0.1) | Created: 2023-09-27
 ### Bug Fixes
 - Fixed problems with events and added http connector
