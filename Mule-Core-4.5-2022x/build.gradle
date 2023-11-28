@@ -5,7 +5,7 @@ apply plugin: 'java'
 
 
 dependencies {
-   implementation 'org.mule.runtime:mule-core:4.5.0'
+   implementation 'org.mule.runtime:mule-core:4.5.0-20220103'
    implementation group: 'com.google.guava', name: 'guava', version: '32.1.1-jre'
 
    // New Relic Labs Java Agent dependencies
@@ -16,7 +16,7 @@ dependencies {
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Core-4.5'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Core-4.5-2022x'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -24,7 +24,7 @@ jar {
 }
 
 verifyInstrumentation {
- passes 'org.mule.runtime:mule-core:[4.5.0,)'
+ passes 'org.mule.runtime:mule-core:[4.5.0-20220103,)'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     //excludeRegex '.*4.5.0-202.*'
