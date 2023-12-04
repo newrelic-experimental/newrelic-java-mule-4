@@ -1,11 +1,10 @@
 ## Version: [v3.1.2](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.1.2) | Created: 2023-11-29
 ### Bug Fixes
-- Ixes to Mule-Core-5.x
-- Ixes to Mule-Core-5.x
-- Erge pull request #18 from newrelic-experimental/fix-mule-core-4.5
+- Fixes to Mule-Core-5.x
+- Merge pull request #18 from newrelic-experimental/fix-mule-core-4.5
 - Upgraded plugin de.undercouch.download version 5.0.0
-- Ixed excludes so verify passes
-- Erge pull request #19 from newrelic-experimental/fix-mule-core-4.5
+- Fixed excludes so verify passes
+- Merge pull request #19 from newrelic-experimental/fix-mule-core-4.5
 
 
 ## Version: [v3.1.1](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.1.1) | Created: 2023-11-01
