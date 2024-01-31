@@ -27,5 +27,6 @@ verifyInstrumentation {
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*FD.*'
     excludeRegex '.*greenarrow'
+    excludeRegex '.*4.1.6-202.*'
     excludeRegex '.*4.2.0-20210120'
 }
