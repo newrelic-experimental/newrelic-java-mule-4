@@ -1,3 +1,9 @@
+## Version: [v3.1.3](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.1.3) | Created: 2024-01-31
+### Bug Fixes
+- Fixed instrumentation for mule core 4.1.x
+- Fixed instrumentation for mule extensions
+
+
 ## Version: [v3.1.2](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.1.2) | Created: 2023-11-29
 ### Bug Fixes
 - Fixes to Mule-Core-5.x
