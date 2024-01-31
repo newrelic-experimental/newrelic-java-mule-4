@@ -25,4 +25,5 @@ verifyInstrumentation {
     passes 'org.mule.runtime:mule-core:[4.1.3,4.2.0)'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
+    excludeRegex '.*4.1.6-202.*'
 }
