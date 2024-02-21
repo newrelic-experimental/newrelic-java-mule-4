@@ -1,20 +1,23 @@
 
-// Build.gradle generated for instrumentation module Mule-Extensions-4.3
+// Build.gradle generated for instrumentation module Mule-Batch-ee
 
 apply plugin: 'java'
 
 dependencies {
-    implementation 'org.mule.runtime:mule-module-extensions-support:4.4.0'
+//   implementation 'org.mule.runtime:mule-core:4.2.1'
+     implementation 'com.mulesoft.mule.runtime.modules:mule-module-batch-ee:4.5.0'
 
    // New Relic Labs Java Agent dependencies
    implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
    implementation 'com.newrelic.agent.java:newrelic-api:6.0.0'
    implementation fileTree(include: ['*.jar'], dir: '../libs')
+//   implementation fileTree(include: ['*.jar'], dir: 'lib')
+   
 }
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Extensions-4.4'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Batch-ee'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -22,9 +25,6 @@ jar {
 }
 
 verifyInstrumentation {
-	passes 'org.mule.runtime:mule-module-extensions-support:[4.4.0,4.5.0)'
-    excludeRegex '.*MULE.*'
-    excludeRegex '.*SNAPSHOT'
-    excludeRegex '.*rc[0-9]'
-    excludeRegex '.*SNAPSHOT'
+   passes 'com.mulesoft.mule.runtime.modules:mule-module-batch-ee:[4.5.0,)'
+   excludeRegex '.*4.5.0-2022.*'
 }

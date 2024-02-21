@@ -5,7 +5,7 @@ apply plugin: 'java'
 
 dependencies {
 //   implementation 'org.mule.runtime:mule-core:4.2.1'
-     implementation 'com.mulesoft.mule.runtime.modules:mule-module-batch-ee:4.2.1'
+     implementation 'com.mulesoft.mule.runtime.modules:mule-module-batch-ee:4.5.0-20220523'
 
    // New Relic Labs Java Agent dependencies
    implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
@@ -25,5 +25,7 @@ jar {
 }
 
 verifyInstrumentation {
-   passes 'com.mulesoft.mule.runtime.modules:mule-module-batch-ee:[4.2.1,4.5.0)'
+   passes 'com.mulesoft.mule.runtime.modules:mule-module-batch-ee:(4.5.0,4.6.0)'
+   exclude 'com.mulesoft.mule.runtime.modules:mule-module-batch-ee:4.5.1'
+   excludeRegex '.*-rc[0-9]'
 }
