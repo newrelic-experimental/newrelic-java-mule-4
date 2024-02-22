@@ -3,6 +3,7 @@ package org.mule.runtime.core.api.processor;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.mule.runtime.api.meta.NamedObject;
 import org.mule.runtime.core.api.event.CoreEvent;
 
 import com.newrelic.api.agent.NewRelic;
@@ -17,6 +18,17 @@ public abstract class Processor {
 
 	@Trace
 	public CoreEvent process(CoreEvent event) {
+		boolean named = false;
+		if(this instanceof NamedObject) {
+			String name = ((NamedObject)this).getName();
+			if(name != null && !name.isEmpty()) {
+				NewRelic.getAgent().getTracedMethod().setMetricName("Custom","Processor",getClass().getSimpleName(),name,"execute");
+				named = true;
+			}
+		}
+		if(!named) {
+			NewRelic.getAgent().getTracedMethod().setMetricName("Custom","Processor",getClass().getSimpleName(),"execute");
+		}
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", event, attributes);
 		CoreEvent returnedEvent = Weaver.callOriginal();

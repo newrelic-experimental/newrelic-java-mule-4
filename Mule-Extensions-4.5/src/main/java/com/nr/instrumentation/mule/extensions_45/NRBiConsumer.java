@@ -8,9 +8,8 @@ import com.newrelic.api.agent.Segment;
 public class NRBiConsumer<T> implements BiConsumer<T, Throwable> {
 	
 	private Segment segment = null;
-	
-	public NRBiConsumer(String n) {
-		String name = n != null ? n : "Unknown";
+
+	public NRBiConsumer(String name) {
 		segment = NewRelic.getAgent().getTransaction().startSegment("MuleOperation-"+name);
 	}
 

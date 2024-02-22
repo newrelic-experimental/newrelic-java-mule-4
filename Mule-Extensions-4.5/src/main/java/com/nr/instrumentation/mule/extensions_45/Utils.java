@@ -1,4 +1,4 @@
-package com.nr.instrumentation.mule.extensions;
+package com.nr.instrumentation.mule.extensions_45;
 
 import java.util.ArrayList;
 import java.util.List;
