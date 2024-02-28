@@ -23,4 +23,5 @@ jar {
 }
 
 verifyInstrumentation {
+ passes 'org.mule.module:mule-java-module:[1.0.0]'
 }
