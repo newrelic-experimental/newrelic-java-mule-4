@@ -1,7 +1,5 @@
 package org.mule.runtime.extension.api.runtime.operation;
 
-import java.util.logging.Level;
-
 import org.mule.runtime.api.meta.model.ComponentModel;
 
 import com.newrelic.api.agent.NewRelic;
@@ -24,7 +22,6 @@ public abstract class CompletableComponentExecutor<M extends ComponentModel> {
 		
 		@Trace
 		public void complete(Object p0) {
-			NewRelic.getAgent().getLogger().log(Level.FINE, new Exception("ExecutorCallback Call"), "Call to {0}.complete({1})", getClass(), p0);
 			NewRelic.getAgent().getTracedMethod().setMetricName("Custom","ExecutorCallback",getClass().getSimpleName(),"complete");
 			Weaver.callOriginal();
 		}

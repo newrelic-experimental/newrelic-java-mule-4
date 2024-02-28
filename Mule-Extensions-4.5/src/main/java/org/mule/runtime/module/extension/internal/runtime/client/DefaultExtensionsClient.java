@@ -10,6 +10,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 
+@SuppressWarnings("deprecation")
 @Weave
 public abstract class DefaultExtensionsClient {
 

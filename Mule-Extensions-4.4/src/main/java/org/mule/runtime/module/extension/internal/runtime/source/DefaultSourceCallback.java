@@ -18,10 +18,12 @@ abstract class DefaultSourceCallback<T, A> {
 	private String applicationName = Weaver.callOriginal();
 	private MessageProcessContext messageProcessContext = Weaver.callOriginal();
 
-	@Trace(dispatcher=true)
+	@Trace
 	public void handle(Result<T, A> result, SourceCallbackContext context) {
-		Utils.addAppName(applicationName);
-		NewRelic.addCustomParameter("Application-Name", applicationName != null ? applicationName : "Unnamed application");
+		if(applicationName != null) {
+			Utils.addAppName(applicationName);
+			NewRelic.addCustomParameter("Application-Name", applicationName != null ? applicationName : "Unnamed application");
+		}
 		FlowConstruct flowConstruct = messageProcessContext.getFlowConstruct();
 		String flowName = flowConstruct.getName();
 		if(flowName != null && !flowName.isEmpty()) {
@@ -29,7 +31,10 @@ abstract class DefaultSourceCallback<T, A> {
 			NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_LOW, false, "Flows", flowName);
 		}
 
-		NewRelic.addCustomParameter("Flow-Representation", flowConstruct.getRepresentation());
+		String flowRep = flowConstruct.getRepresentation();
+		if(flowRep != null && !flowRep.isEmpty()) {
+			NewRelic.addCustomParameter("Flow-Representation", flowConstruct.getRepresentation());
+		}
 		Weaver.callOriginal();
 	}
 }

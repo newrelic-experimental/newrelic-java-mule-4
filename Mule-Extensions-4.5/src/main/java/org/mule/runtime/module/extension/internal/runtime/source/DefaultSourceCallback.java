@@ -1,7 +1,5 @@
 package org.mule.runtime.module.extension.internal.runtime.source;
 
-import java.util.logging.Level;
-
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.internal.execution.MessageProcessContext;
 import org.mule.sdk.api.runtime.operation.Result;
@@ -37,8 +35,6 @@ abstract class DefaultSourceCallback<T, A> {
 		if(flowRep != null && !flowRep.isEmpty()) {
 			NewRelic.addCustomParameter("Flow-Representation", flowConstruct.getRepresentation());
 		}
-		// TODO Remove extraneous logging 
-		NewRelic.getAgent().getLogger().log(Level.FINE, new Exception("Call to DefaultSourceCallback"), "Call to DefaultSourceCallback.handle({0},{1}), value of application name: {2}, value of flow rep: {3}",result,context,applicationName,flowRep);
 		Weaver.callOriginal();
 	}
 }
