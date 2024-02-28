@@ -1,5 +1,7 @@
 package org.mule.runtime.module.extension.internal.runtime.source;
 
+import java.util.logging.Level;
+
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.internal.execution.MessageProcessContext;
 import org.mule.sdk.api.runtime.operation.Result;
@@ -18,10 +20,12 @@ abstract class DefaultSourceCallback<T, A> {
 	private String applicationName = Weaver.callOriginal();
 	private MessageProcessContext messageProcessContext = Weaver.callOriginal();
 
-	@Trace(dispatcher=true)
+	@Trace
 	public void handle(Result<T, A> result, SourceCallbackContext context) {
-		Utils.addAppName(applicationName);
-		NewRelic.addCustomParameter("Application-Name", applicationName != null ? applicationName : "Unnamed application");
+		if(applicationName != null) {
+			Utils.addAppName(applicationName);
+			NewRelic.addCustomParameter("Application-Name", applicationName != null ? applicationName : "Unnamed application");
+		}
 		FlowConstruct flowConstruct = messageProcessContext.getFlowConstruct();
 		String flowName = flowConstruct.getName();
 		if(flowName != null && !flowName.isEmpty()) {
@@ -29,7 +33,12 @@ abstract class DefaultSourceCallback<T, A> {
 			NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_LOW, false, "Flows", flowName);
 		}
 
-		NewRelic.addCustomParameter("Flow-Representation", flowConstruct.getRepresentation());
+		String flowRep = flowConstruct.getRepresentation();
+		if(flowRep != null && !flowRep.isEmpty()) {
+			NewRelic.addCustomParameter("Flow-Representation", flowConstruct.getRepresentation());
+		}
+		// TODO Remove extraneous logging 
+		NewRelic.getAgent().getLogger().log(Level.FINE, new Exception("Call to DefaultSourceCallback"), "Call to DefaultSourceCallback.handle({0},{1}), value of application name: {2}, value of flow rep: {3}",result,context,applicationName,flowRep);
 		Weaver.callOriginal();
 	}
 }

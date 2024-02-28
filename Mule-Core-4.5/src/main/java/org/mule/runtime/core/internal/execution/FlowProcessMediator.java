@@ -12,7 +12,6 @@ import org.mule.runtime.core.api.construct.Pipeline;
 import org.mule.runtime.core.api.event.CoreEvent;
 import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.internal.event.MuleUtils;
-import org.mule.runtime.core.internal.execution.FlowProcessMediator.DefaultFlowProcessMediatorContext;
 import org.mule.runtime.core.internal.policy.SourcePolicy;
 import org.mule.sdk.api.runtime.source.DistributedTraceContextManager;
 
@@ -21,6 +20,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.mule.core.NRBiConsumer;
 import com.newrelic.mule.core.NRCoreUtils;
 
 @Weave
@@ -45,14 +45,16 @@ public abstract class FlowProcessMediator {
 		Weaver.callOriginal();
 	}
 	
-//	@SuppressWarnings("unused")
-//	private CoreEvent createEvent(FlowProcessTemplate template, MessageSource source,
-//			CompletableFuture<Void> responseCompletion, FlowConstruct flowConstruct) {
-//		CoreEvent resultEvent = Weaver.callOriginal();
-//		EventContext eventCtx = resultEvent.getContext();
-//		MuleUtils.setHeaders(eventCtx);
-//		return resultEvent;
-//	}
+	@SuppressWarnings("unused")
+	private CoreEvent createEvent(FlowProcessTemplate template, MessageSource source,
+			CompletableFuture<Void> responseCompletion, FlowConstruct flowConstruct) {
+		NRBiConsumer<Void, Throwable> consumer = new NRBiConsumer<>("ResponseCompletion");
+		responseCompletion = responseCompletion.whenComplete(consumer);
+		CoreEvent resultEvent = Weaver.callOriginal();
+		EventContext eventCtx = resultEvent.getContext();
+		MuleUtils.setHeaders(eventCtx);
+		return resultEvent;
+	}
 	
 	@Trace
 	private void dispatch(CoreEvent event, SourcePolicy sourcePolicy, Pipeline flowConstruct, DefaultFlowProcessMediatorContext ctx) {

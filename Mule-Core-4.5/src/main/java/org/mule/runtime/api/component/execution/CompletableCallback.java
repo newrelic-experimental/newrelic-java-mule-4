@@ -15,15 +15,17 @@ public abstract class CompletableCallback<T> {
 	@NewField
 	public NRMuleHeaders headers = null;
 	
-	@Trace
+	@Trace(dispatcher = true)
 	public void complete(T var1) {
+		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","CompletableCallback","complete");
 		HeaderUtils.acceptHeaders(headers);
 		headers = null;
 		Weaver.callOriginal();
 	}
 
-	@Trace
+	@Trace(dispatcher = true)
 	public void error(Throwable var1) {
+		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","CompletableCallback","error");
 		NewRelic.noticeError(var1);
 		HeaderUtils.acceptHeaders(headers);
 		headers = null;

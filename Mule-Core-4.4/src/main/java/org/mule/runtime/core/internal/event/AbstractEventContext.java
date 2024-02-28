@@ -67,16 +67,6 @@ abstract class AbstractEventContext implements BaseEventContext {
 		Weaver.callOriginal();
 	}
 	
-	private void expireParent(Optional<BaseEventContext> parent) {
-		if(parent != null && parent.isPresent()) {
-			BaseEventContext root = parent.get().getRootContext();
-			if(root instanceof AbstractEventContext) {
-				((AbstractEventContext)root).headers.clear();
-				((AbstractEventContext)root).headers = null;
-			}
-		}
-	}
-
 	public void success(CoreEvent event) {
 		if(headers != null && !headers.isEmpty()) {
 			HeaderUtils.acceptHeaders(headers);
@@ -133,6 +123,16 @@ abstract class AbstractEventContext implements BaseEventContext {
 					}
 				} catch (NullPointerException e) {
 				}
+			}
+		}
+	}
+
+	private void expireParent(Optional<BaseEventContext> parent) {
+		if(parent != null && parent.isPresent()) {
+			BaseEventContext root = parent.get().getRootContext();
+			if(root instanceof AbstractEventContext) {
+				((AbstractEventContext)root).headers.clear();
+				((AbstractEventContext)root).headers = null;
 			}
 		}
 	}

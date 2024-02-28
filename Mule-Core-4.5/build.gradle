@@ -28,5 +28,5 @@ verifyInstrumentation {
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*4.5.0-202.*'
-   
+    excludeRegex '.*rc[0-9]'
 }

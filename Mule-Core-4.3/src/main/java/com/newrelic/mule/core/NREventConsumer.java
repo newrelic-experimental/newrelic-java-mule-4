@@ -9,6 +9,7 @@ import com.newrelic.agent.bridge.AgentBridge;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
 
+
 public class NREventConsumer implements Consumer<CoreEvent> {
 
 	private static boolean isTransformed = false;

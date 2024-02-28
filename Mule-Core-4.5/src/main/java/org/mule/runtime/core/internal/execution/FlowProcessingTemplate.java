@@ -7,6 +7,7 @@ import org.mule.runtime.api.component.Component;
 import org.mule.runtime.api.component.execution.CompletableCallback;
 import org.mule.runtime.api.component.location.ComponentLocation;
 import org.mule.runtime.core.api.event.CoreEvent;
+import org.mule.runtime.core.internal.event.MuleUtils;
 import org.mule.runtime.core.internal.exception.MessagingException;
 import org.reactivestreams.Publisher;
 
@@ -23,8 +24,10 @@ public abstract class FlowProcessingTemplate {
 
 	@Trace
 	public CoreEvent routeEvent(CoreEvent muleEvent) {
+		
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", muleEvent, attributes);
+		MuleUtils.setHeaders(muleEvent.getContext());
 		CoreEvent returnedEvent = Weaver.callOriginal();
 		NRCoreUtils.recordCoreEvent("Returned", returnedEvent, attributes);
 		NewRelic.getAgent().getTracedMethod().addCustomAttributes(attributes);
@@ -36,6 +39,7 @@ public abstract class FlowProcessingTemplate {
 	public Publisher<CoreEvent> routeEventAsync(CoreEvent event) {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 		NRCoreUtils.recordCoreEvent("Input", event, attributes);
+		MuleUtils.setHeaders(event.getContext());
 		return Weaver.callOriginal();
 	}
 
