@@ -3,19 +3,20 @@ package com.nr.instrumentation.mule.scheduler;
 import java.util.concurrent.Callable;
 
 import com.newrelic.agent.bridge.AgentBridge;
+import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 
 public class NRCallable<V> implements Callable<V> {
 	
 	private Callable<V> delegate = null;
 	
-	private NRMuleHeaders headers = null;
+	private Token token = null;
 	
 	private static boolean isTransformed = false;
 	
-	public NRCallable(Callable<V> c, NRMuleHeaders h) {
+	public NRCallable(Callable<V> c, Token h) {
 		delegate = c;
-		headers = h;
+		token = h;
 		if(!isTransformed) {
 			isTransformed = true;
 			AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
@@ -23,10 +24,12 @@ public class NRCallable<V> implements Callable<V> {
 	}
 
 	@Override
-	@Trace(dispatcher = true)
+	@Trace(async = true)
 	public V call() throws Exception {
-		HeaderUtils.acceptHeaders(headers);
-		headers = null;
+		if(token != null) {
+			token.linkAndExpire();
+			token = null;
+		}
 		if(delegate != null) {
 			return delegate.call();
 		}

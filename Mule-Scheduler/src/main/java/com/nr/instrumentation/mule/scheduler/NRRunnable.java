@@ -1,19 +1,19 @@
 package com.nr.instrumentation.mule.scheduler;
 
 import com.newrelic.agent.bridge.AgentBridge;
+import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 
 public class NRRunnable implements Runnable {
 	
 	private Runnable delegate = null;
+	private Token token = null;
 	
-	private NRMuleHeaders headers = null;
-
 	private static boolean isTransformed = false;
 	
-	public NRRunnable(Runnable d, NRMuleHeaders h) {
+	public NRRunnable(Runnable d, Token h) {
 		delegate = d;
-		headers = h;
+		token = h;
 		if(!isTransformed) {
 			isTransformed = true;
 			AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
@@ -21,10 +21,12 @@ public class NRRunnable implements Runnable {
 	}
 
 	@Override
-	@Trace(dispatcher=true)
+	@Trace(async=true)
 	public void run() {
-		HeaderUtils.acceptHeaders(headers);
-		headers = null;
+		if(token != null) {
+			token.linkAndExpire();
+			token = null;
+		}
 		if(delegate != null) {
 			delegate.run();
 		}
