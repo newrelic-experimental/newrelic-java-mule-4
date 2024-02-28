@@ -19,7 +19,9 @@ public abstract class Router {
 	@Trace(dispatcher=true)
 	private CompletableFuture<Event> doRoute(CoreEvent event, Configuration config,CoreEvent.Builder eventBuilder, HttpRequestAttributes attributes) {
 		CompletableFuture<Event> result = Weaver.callOriginal();
-		return result.whenComplete(new NRBiConsumer<>(getName()));
+		String name = getName();
+		if(name == null || name.isEmpty()) name = "Unknown";
+		return result.whenComplete(new NRBiConsumer<>(name));
 	}
 	
 }
