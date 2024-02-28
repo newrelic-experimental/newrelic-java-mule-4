@@ -2,7 +2,6 @@ package org.mule.runtime.core.privileged.component;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 
 import org.mule.runtime.api.component.AbstractComponent;
 import org.mule.runtime.api.component.execution.ExecutionResult;
@@ -27,7 +26,6 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 
 	@Trace(dispatcher=true)
 	public CompletableFuture<ExecutionResult> execute(InputEvent paramInputEvent) {
-		NewRelic.getAgent().getLogger().log(Level.FINE, new Exception("AbstractExecutableComponent Call"), "Call to {0}.execute_inputevent({1})", getClass(), paramInputEvent);
 		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
 		traced.addCustomAttribute("InputParameter", "InputEvent");
 		traced.setMetricName(new String[] {"Custom","AbstractExecutableComponent",getClass().getSimpleName(),"execute"});
@@ -44,7 +42,6 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 
 	@Trace(dispatcher=true)
 	public CompletableFuture<Event> execute(Event paramEvent) {
-		NewRelic.getAgent().getLogger().log(Level.FINE, new Exception("AbstractExecutableComponent Call"), "Call to {0}.execute_event({1})", getClass(), paramEvent);
 		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
 		traced.setMetricName(new String[] {"Custom","AbstractExecutableComponent",getClass().getSimpleName(),"execute"});
 		traced.addCustomAttribute("InputParameter", "Event");
@@ -61,7 +58,6 @@ public abstract class AbstractExecutableComponent extends AbstractComponent {
 
 	@Trace(dispatcher=true)
 	public CompletableFuture<Event> execute(Event event, Consumer<CoreEvent.Builder> childEventContributor) {
-		NewRelic.getAgent().getLogger().log(Level.FINE, new Exception("AbstractExecutableComponent Call"), "Call to {0}.execute_event_consumer({1}, {2})", getClass(), event, childEventContributor);
 		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
 		traced.setMetricName(new String[] {"Custom","AbstractExecutableComponent",getClass().getSimpleName(),"execute"});
 		traced.addCustomAttribute("InputParameter", "Event,Consumer");
