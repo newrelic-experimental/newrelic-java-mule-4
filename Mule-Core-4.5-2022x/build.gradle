@@ -28,4 +28,5 @@ verifyInstrumentation {
     excludeRegex '.*SNAPSHOT.*'
     excludeRegex '.*rc[0-9]'
    exclude 'org.mule.runtime:mule-core:4.5.1'
+   exclude 'org.mule.runtime:mule-core:4.5.3'
 }

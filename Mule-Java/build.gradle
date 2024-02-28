@@ -23,5 +23,5 @@ jar {
 }
 
 verifyInstrumentation {
- passes 'org.mule.module:mule-java-module:[1.0.0]'
+// cannot run verify due to the :mule-plugin appended to the end
 }
