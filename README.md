@@ -20,7 +20,12 @@
 Instrumentation for the Mule 4.x framework.  
 
 ## Accouncement
-The original releases of the Mule 4.x instrumentation used the New Relic Java Agent Asynchronous framework to tie the transaction together.  But in some Mule applications it was resulting in some of the asynchronous tokens not being expired and some async segments not being ended.  Because these items are stored in static caches it could consume large amounts of memory and cause problems.  In Version 3.0 we started using distributed tracing headers to tie things together.  This results in more transactions being reported but everything gets tied together in the Distributed Tracing view and it does not cause memory issues.   If the desire is to have one conhesive transaction then use Release V2.0 provided that memory is not being consumed.  If the distributed tracing view is acceptable then use Release V3.0
+The original releases of the Mule 4.x instrumentation used the New Relic Java Agent Asynchronous framework to tie the transaction together.  But in some Mule applications it was resulting in some of the asynchronous tokens not being expired and some async segments not being ended.  Because these items are stored in static caches it could consume large amounts of memory and cause problems.  In Version 3.0 we started using distributed tracing headers to tie things together.  This results in more transactions being reported but everything gets tied together in the Distributed Tracing view and it does not cause memory issues.   If the desire is to have one conhesive transaction then use Release V2.0 provided that memory is not being consumed.  If the distributed tracing view is acceptable then use Release V3.0   
+## Notes on extension version numbers
+Many of the instrumentation modules include a version number appended to the end of the name.  For example, Mule-Core-4.3.  Those with no version numbers represent the initial releases (typically 4.0) and when it no longer works in a newer version, a new extension is created with the same name and -4.xxx where 4.xxx is the version where the instrumentation stopped working.   So even if you are using a newer version, the latest version should still work.  We do regularly run a verify process to ensure our instrumentation works against all current versions but if you find it is not working in a particular version, please open an issue and we will attempt to address it.   
+The following table shows the versions covered by each extension:    
+| Extension     | Versions |
+| Mule-APIKit-Module | 1.0 - 1.1.9  |
 
 ## Installation
 
