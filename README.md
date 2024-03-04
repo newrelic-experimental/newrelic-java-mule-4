@@ -24,8 +24,28 @@ The original releases of the Mule 4.x instrumentation used the New Relic Java Ag
 ## Notes on extension version numbers
 Many of the instrumentation modules include a version number appended to the end of the name.  For example, Mule-Core-4.3.  Those with no version numbers represent the initial releases (typically 4.0) and when it no longer works in a newer version, a new extension is created with the same name and -4.xxx where 4.xxx is the version where the instrumentation stopped working.   So even if you are using a newer version, the latest version should still work.  We do regularly run a verify process to ensure our instrumentation works against all current versions but if you find it is not working in a particular version, please open an issue and we will attempt to address it.   
 The following table shows the versions covered by each extension:    
-| Extension     | Versions |
-| Mule-APIKit-Module | 1.0 - 1.1.9  |
+   
+|Extension | Versions |  
+| --- | --- |   
+| Mule-APIKit-Module | 1.0 - 1.1.9  |  
+| Mule-APIKit-Module-1.1.10 | 1.1.10 - 1.3.3 |
+| Mule-APIKit-Module-1.3.4 | 1.3.3 & later |
+| Mule-Batch-ee | 4.2.2 - 4.4.x |
+| Mule-Batch-ee-4.5 | 4.5.0 and later |
+| Mule-Core-4 | 4.0.x |
+| Mule-Core-4.1.0 | 4.1.0 - 4.1.2 |
+| Mule-Core-4.1.3 | 4.1.3 - 4.1.6 |
+| Mule-Core-4.2 | 4.2.0 - 4.2.1 |
+| Mule-Core-4.2.2 | 4.2.2 |
+| Mule-Core-4.3 | 4.3.0 |
+| Mule-Core-4.4 | 4.4.0 |
+| Mule-Core-4.4-2022x | all 4.4.0-2022 versions |
+| Mule-Core-4.5 | 4.5.1 and later |
+| Mule-Core-4.5-2022x | all 4.5.0-2022 versions |
+| Mule-Extensions | 4.0.0 - 4.2.2 |
+| Mule-Extensions-4.3 | 4.3.0 |
+| Mule-Extensions-4.4 | 4.4.0 including 2022 versions |
+
 
 ## Installation
 
