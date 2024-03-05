@@ -38,13 +38,24 @@ The following table shows the versions covered by each extension:
 | Mule-Core-4.2 | 4.2.0 - 4.2.1 |
 | Mule-Core-4.2.2 | 4.2.2 |
 | Mule-Core-4.3 | 4.3.0 |
-| Mule-Core-4.4 | 4.4.0 and 4.3.0-2021 & 4,3,2022 versions |
+| Mule-Core-4.4 | 4.4.0 and 4.3.0-2021 & 4.3-2022 versions |
 | Mule-Core-4.4-2022x | all 4.4.0-2022 versions |
 | Mule-Core-4.5 | 4.5.1 and later |
 | Mule-Core-4.5-2022x | all 4.5.0-2022 versions |
 | Mule-Extensions | 4.0.0 - 4.2.2 |
 | Mule-Extensions-4.3 | 4.3.0 |
-| Mule-Extensions-4.4 | 4.4.0 including 2022 versions |
+| Mule-Extensions-4.4 | 4.4.0 including 4.4.0-2022 versions & 4.5.0-2022 versions except 20221117 |
+| Mule-Extensions-4.5 | 4.5.0 and higher including 4.5.0-20221117 but not other 2022 versions  |
+| Mule-Http-Api | 4.2.0 and higher |
+| Mule-Http | 1.1.0 - 1.1.9 |
+| Mule-Http-1.2 | 1.2.0 - 1.3.0 |
+| Mule-Http-1.4 | 1.4.0 and higher |
+| Mule-Java | 1.0.0 - 1.1.2 |
+| Mule-Java-1.2 | 1.2.0 and higher |
+| Mule-Scheduler | 1.0.0 and higher |
+| Mule-Soap-Api | 1.0.0 and higher |
+| Mule-Soap-Extension | 1.0.0 and higher |
+
 
 
 ## Installation
