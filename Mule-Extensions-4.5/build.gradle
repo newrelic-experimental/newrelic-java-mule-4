@@ -10,7 +10,6 @@ dependencies {
    implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
    implementation 'com.newrelic.agent.java:newrelic-api:6.0.0'
    implementation fileTree(include: ['*.jar'], dir: '../libs')
-   implementation(project(":Mule-Core-4.5"))
 }
 
 jar {
@@ -26,5 +25,5 @@ verifyInstrumentation {
 	passes 'org.mule.runtime:mule-module-extensions-support:[4.5.0,)'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
-    excludeRegex '.*4.5.0-.*'
+    excludeRegex '.*4.5.0-20220.*'
 }

@@ -24,9 +24,9 @@ jar {
 verifyInstrumentation {
 	passes 'org.mule.runtime:mule-module-extensions-support:[4.0.0,4.3.0)'
 	exclude 'org.mule.runtime:mule-module-extensions-support:4.1.6-20240112'
+	exclude 'org.mule.runtime:mule-module-extensions-support:4.2.0-20210120'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*FD.*'
     excludeRegex '.*greenarrow'
-    excludeRegex '.*4.2.0-20210120'
 }

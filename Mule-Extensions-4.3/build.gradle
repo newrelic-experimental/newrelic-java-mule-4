@@ -22,7 +22,7 @@ jar {
 }
 
 verifyInstrumentation {
-	passes 'org.mule.runtime:mule-module-extensions-support:[4.3.0,4.4.0)'
+	passes 'org.mule.runtime:mule-module-extensions-support:(4.2.2,4.4.0)'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*4.3.0-202.*'

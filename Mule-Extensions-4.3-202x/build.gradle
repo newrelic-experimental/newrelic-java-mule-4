@@ -4,7 +4,7 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation 'org.mule.runtime:mule-module-extensions-support:4.4.0'
+    implementation 'org.mule.runtime:mule-module-extensions-support:4.3.0-20210119'
 
    // New Relic Labs Java Agent dependencies
    implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
@@ -14,7 +14,7 @@ dependencies {
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Extensions-4.4'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Extensions-4.3-202x'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -22,9 +22,8 @@ jar {
 }
 
 verifyInstrumentation {
-	passes 'org.mule.runtime:mule-module-extensions-support:[4.4.0,4.5.1)'
-	exclude 'org.mule.runtime:mule-module-extensions-support:4.5.0'
-	exclude 'org.mule.runtime:mule-module-extensions-support:4.5.0-20221117'
+	passes 'org.mule.runtime:mule-module-extensions-support:(4.2.2,4.4.0)'
+	exclude 'org.mule.runtime:mule-module-extensions-support:4.3.0'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*rc[0-9]'
