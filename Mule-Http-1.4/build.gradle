@@ -1,10 +1,10 @@
 
-// Build.gradle generated for instrumentation module Mule-Http-1.2
+// Build.gradle generated for instrumentation module Mule-Http-1.4
 
 apply plugin: 'java'
 
 dependencies {
-   	implementation 'org.mule.services:mule-service-http:1.2.0'
+   	implementation 'org.mule.services:mule-service-http:1.4.1'
     implementation 'org.mule.runtime:mule-service-http-api:4.2.0'
 
 
@@ -16,7 +16,7 @@ dependencies {
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Http-1.2'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Http-1.4.1'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -24,9 +24,11 @@ jar {
 }
 
 verifyInstrumentation {
-	passes("org.mule.services:mule-service-http:[1.2.0,1.4.0)") {
-	compile 'org.mule.runtime:mule-service-http-api:4.2.0'
+	passes("org.mule.services:mule-service-http:[1.4.0,)") {
+    compile 'org.mule.runtime:mule-service-http-api:4.3.0'
+	compile 'org.mule.glassfish.grizzly:grizzly-http-server:2.3.36-MULE-008'
 	}
+	exclude 'org.mule.services:mule-service-http:1.5.18'
 	excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT.*'
     excludeRegex '.*-M.*'
