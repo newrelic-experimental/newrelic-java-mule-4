@@ -23,6 +23,7 @@ jar {
 
 verifyInstrumentation {
 	passes 'org.mule.services:mule-service-scheduler:[1.0.0,)'
+	exclude 'org.mule.services:mule-service-scheduler:1.4.4'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*-FD.*'

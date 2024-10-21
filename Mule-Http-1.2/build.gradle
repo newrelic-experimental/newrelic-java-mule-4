@@ -34,6 +34,7 @@ verifyInstrumentation {
 	compile 'org.mule.runtime:mule-service-http-api:4.3.0'
 	}
 	exclude 'org.mule.services:mule-service-http:1.5.18'
+	exclude 'org.mule.services:mule-service-http:1.6.19'
 	excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT.*'
     excludeRegex '.*-M.*'
