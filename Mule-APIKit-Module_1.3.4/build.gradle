@@ -24,8 +24,8 @@ jar {
 
 verifyInstrumentation {
         passes('org.mule.modules:mule-apikit-module:[1.3.4,)') {
-           compile('org.mule.runtime:mule-core:4.3.0')
-           compile('org.mule.modules:mule-apikit-module:1.3.4:mule-plugin')
+           implementation('org.mule.runtime:mule-core:4.3.0')
+           implementation('org.mule.modules:mule-apikit-module:1.3.4:mule-plugin')
            }
         excludeRegex '.*BETA.*'
         excludeRegex '.*RC.*'
