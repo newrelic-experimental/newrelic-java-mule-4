@@ -25,13 +25,13 @@ jar {
 
 verifyInstrumentation {
 	passes("org.mule.services:mule-service-http:(1.2.0,1.4.0)") {
-	compile 'org.mule.runtime:mule-service-http-api:4.3.0'
+	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
 	}
 	passes("org.mule.services:mule-service-http:(1.4.0,1.5.18)") {
-	compile 'org.mule.runtime:mule-service-http-api:4.3.0'
+	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
 	}
 	passes("org.mule.services:mule-service-http:[1.6.0,)") {
-	compile 'org.mule.runtime:mule-service-http-api:4.3.0'
+	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
 	}
 	exclude 'org.mule.services:mule-service-http:1.5.18'
 	exclude 'org.mule.services:mule-service-http:1.6.19'

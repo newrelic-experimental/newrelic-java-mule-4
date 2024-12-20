@@ -24,7 +24,7 @@ jar {
 
 verifyInstrumentation {
 	passes('org.mule.services:mule-service-http:[1.1.0,1.2.0)') {
-	compile 'org.mule.runtime:mule-service-http-api:4.1.0'
+	implementation 'org.mule.runtime:mule-service-http-api:4.1.0'
 	}
 	excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT.*'
