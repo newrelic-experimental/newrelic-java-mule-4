@@ -5,7 +5,7 @@ apply plugin: 'java'
 
 dependencies {
    implementation 'org.mule.module:mule-java-module:1.2.0:mule-plugin'
-   implementation group: 'org.mule.runtime', name: 'mule-api', version: '1.1.0'
+   implementation group: 'org.mule.runtime', name: 'mule-api', version: '1.2.0'
 
    // New Relic Labs Java Agent dependencies
    implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
@@ -23,9 +23,8 @@ jar {
 }
 
 verifyInstrumentation {
-  // Verifier plugin documentation:
-  // https://github.com/newrelic/newrelic-gradle-verify-instrumentation
-  // Example:
-  // passes 'javax.servlet:servlet-api:[2.2,2.5]'
-  // exclude 'javax.servlet:servlet-api:2.4.public_draft'
+	passes ('org.mule.module:mule-java-module:[1.2.0,)') {
+	implementation 'org.mule.module:mule-java-module:1.2.0:mule-plugin'
+    implementation 'org.mule.runtime:mule-core:4.2.0'
+	}
 }

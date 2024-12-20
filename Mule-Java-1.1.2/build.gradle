@@ -4,8 +4,8 @@
 apply plugin: 'java'
 
 dependencies {
-	implementation 'org.mule.module:mule-java-module:1.0.0:mule-plugin'
-    implementation 'org.mule.runtime:mule-api:1.1.0'
+	implementation 'org.mule.module:mule-java-module:1.1.2:mule-plugin'
+    implementation 'org.mule.runtime:mule-core:4.1.0'
 
    // New Relic Labs Java Agent dependencies
    implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
@@ -23,7 +23,8 @@ jar {
 }
 
 verifyInstrumentation {
-	passes ('org.mule.module:mule-java-module:[1.0.0,1.1.0)') {
-	implementation 'org.mule.module:mule-java-module:1.0.0:mule-plugin'
+	passes ('org.mule.module:mule-java-module:[1.1.2,1.2.0)') {
+	implementation 'org.mule.module:mule-java-module:1.1.2:mule-plugin'
+    implementation 'org.mule.runtime:mule-core:4.1.2'
 	}
 }

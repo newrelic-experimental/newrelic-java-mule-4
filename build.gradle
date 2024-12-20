@@ -12,7 +12,7 @@ buildscript {
 
   dependencies {
     classpath 'gradle-templates:gradle-templates:1.5'
-    classpath 'com.newrelic.agent.java:gradle-verify-instrumentation-plugin:3.2'
+    classpath 'com.newrelic.agent.java:gradle-verify-instrumentation-plugin:4.0'
   }
 }
 
