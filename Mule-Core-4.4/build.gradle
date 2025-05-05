@@ -25,6 +25,7 @@ verifyInstrumentation {
     passes 'org.mule.runtime:mule-core:[4.4.0,4.5.0)'
     passes 'org.mule.runtime:mule-core:(4.5.0,4.5.1)'
     excludeRegex 'org.mule.runtime:mule-core:4.4.0-2024.*'
+    excludeRegex 'org.mule.runtime:mule-core:4.5.0-2022.*'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
 }
