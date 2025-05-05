@@ -37,7 +37,6 @@ abstract class DefaultSourceCallback<T, A> {
 
 			}
 		}
-		Utils.addAppName(getOwningSourceName());
 		NewRelic.addCustomParameter("Owning-Source-Name", getOwningSourceName() != null ? getOwningSourceName() : "Unnamed");
 		NewRelic.addCustomParameter("Owning-Extension-Name", getOwningExtensionName() != null ? getOwningExtensionName() : "Unnamed");
 		NewRelic.addCustomParameter("Configuration-Instance-Name", getConfigurationInstance().getName());
