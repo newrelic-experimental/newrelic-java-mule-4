@@ -1,3 +1,16 @@
+## Version: [v3.1.6](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.1.6) | Created: 2025-05-13
+### Bug Fixes
+- Ixes to cover changes in serveral core modules
+- Added OpenSourceBot Token
+- Ixes to verify
+- Ixed Java Verify problems
+- Ixed Java Verify problems
+- Ixed Java Verify problems
+- Ixed Java Verify problems
+- Erge pull request #26 from newrelic-experimental/fix_no_verify
+- Erge pull request #27 from newrelic-experimental/fix_extensions
+
+
 ## Version: [v3.1.4](https://github.com/newrelic-experimental/newrelic-java-mule-4/releases/tag/v3.1.4) | Created: 2024-04-15
 ### Bug Fixes
 - Exlulded interim mule core releases from Verification
