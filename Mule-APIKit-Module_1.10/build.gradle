@@ -29,4 +29,5 @@ verifyInstrumentation {
            }
         excludeRegex '.*BETA.*'
         excludeRegex '.*RC.*'
+        excludeRegex '.*SNAPSHOT.*'
  }
