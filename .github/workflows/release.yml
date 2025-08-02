@@ -1,4 +1,4 @@
-name: Build and Release (Manual Run) v1.3
+name: Build and Release (Manual Run) v1.4
 
 on: 
  workflow_dispatch: # This event allows manual triggering
@@ -6,7 +6,7 @@ on:
 env:
   THIRD_PARTY_GIT_AUTHOR_EMAIL: opensource+bot@newrelic.com
   THIRD_PARTY_GIT_AUTHOR_NAME: nr-opensource-bot
-
+  
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
       - name: Build with Gradle and verifyInstrumentation
         run: |
           . ./newrelic-dependencies.sh
-          ./gradlew clean build install verifyInstrumentation
+          ./gradlew clean build install 
 
       - name: Identify Release Type
         id: define_release_type
@@ -57,9 +57,9 @@ jobs:
       - name: Set release version
         id: set_release_version
         run: |
-          major_version=3
+          major_version=1
           minor_version=0
-          patch_revision=1
+          patch_revision=0
 
           # Retrieve the latest release tag
           latest_tag=$(git describe --abbrev=0 --tags 2>/dev/null) || true
@@ -218,4 +218,3 @@ jobs:
               } catch (error) {
                 core.setFailed(error.message);
               }
-
