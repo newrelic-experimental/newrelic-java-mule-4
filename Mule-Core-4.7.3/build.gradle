@@ -24,7 +24,7 @@ jar {
 }
 
 verifyInstrumentation {
-    passes 'org.mule.runtime:mule-core:[4.7.3,)'
+    passes 'org.mule.runtime:mule-core:[4.7.3,4.9.2)'
     exclude 'org.mule.runtime:mule-core:4.8.0-20240422'
     excludeRegex '.*MULE.*'
     excludeRegex '.*rc.*'
