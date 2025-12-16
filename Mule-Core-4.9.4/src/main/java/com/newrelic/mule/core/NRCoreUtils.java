@@ -9,6 +9,8 @@ import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.event.CoreEvent;
 
+import com.newrelic.api.agent.NewRelic;
+
 @SuppressWarnings("deprecation")
 public class NRCoreUtils {
 
@@ -54,6 +56,14 @@ public class NRCoreUtils {
 			recordValue(attributes, "MuleContext-ClusterId", context.getClusterId());
 			recordValue(attributes, "MuleContext-Id", context.getId());
 			recordValue(attributes, "MuleContext-UniqueID", context.getUniqueIdString());
+			// Set Application-Name as transaction attribute only
+			try {
+				String applicationName = context.getConfiguration().getSystemName();
+				String appName = applicationName != null ? applicationName : "Unnamed application";
+				NewRelic.addCustomParameter("Application-Name", appName);
+			} catch (Exception e) {
+				NewRelic.addCustomParameter("Application-Name", "Unnamed application");
+			}
 		}
 	}
 	
