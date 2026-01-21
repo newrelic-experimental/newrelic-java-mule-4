@@ -16,13 +16,9 @@ buildscript {
   }
 }
 
-plugins {
-  id "de.undercouch.download" version "5.0.0"
-}
-
 project.ext {
   group = 'com.newrelic.instrumentation.labs'
-  javaAgentVersion = '6.4.1'
+  javaAgentVersion = '8.4.0'
 
   // Aligned with minimum Java major version supported by latest Java Agent
   javaVersion = JavaVersion.VERSION_1_8
@@ -30,51 +26,16 @@ project.ext {
 }
 
 apply plugin: 'java'
-apply plugin: 'de.undercouch.download'
 
-import templates.*
-import de.undercouch.gradle.tasks.download.Download
 
-task getAgent(type: Download) {
-   def rootProject = projectDir.path
-   src 'https://repo1.maven.org/maven2/com/newrelic/agent/java/newrelic-agent/'+project.javaAgentVersion+'/newrelic-agent-'+project.javaAgentVersion+'.jar'
-   dest projectDir.path+"/libs/newrelic-agent-"+project.javaAgentVersion+".jar"
-}
-
-task extractJars(type: Copy) {
-
-    from zipTree(projectDir.path+"/libs/newrelic-agent-"+project.javaAgentVersion+".jar")
-    into projectDir.path+"/libs"
-}
-
-task cleanUp(type: Delete) {
-  delete projectDir.path+'/libs/META-INF', projectDir.path+'/libs/com', projectDir.path+'/libs/mozilla'
-  delete projectDir.path+'/libs/LICENSE', projectDir.path+'/libs/Log4j-events.dtd', projectDir.path+'/libs/THIRD_PARTY_NOTICES.md'
-  delete fileTree(projectDir.path+'/libs') {
-    include '**/*.xsd'
-    include '**/*.xml'
-    include '**/*.yml'
-    include '**/*.properties'
-  }
-}
-
-task checkForDependencies(type: Exec) {
-    environment "JAVAAGENTVERSION", javaAgentVersion
-    def rootProject = projectDir.path
-    def cmdLine = rootProject+'/newrelic-dependencies.sh'
-    workingDir rootProject
-    commandLine  cmdLine
-
-}
+import templates.ProjectTemplate
+import templates.TemplatesPlugin
 
 task buildIfNeeded {
-   dependsOn checkForDependencies
    dependsOn jar
-   tasks.findByName('jar').mustRunAfter 'checkForDependencies'
 }
 
 task createModule {
-  dependsOn checkForDependencies
   description = 'Generate project files for a new instrumentation module'
   group = 'New Relic Labs'
   doLast {
@@ -122,7 +83,6 @@ task createModule {
            // New Relic Labs Java Agent dependencies
            implementation 'com.newrelic.agent.java:newrelic-agent:JAVA_AGENT_VERSION'
            implementation 'com.newrelic.agent.java:newrelic-api:JAVA_AGENT_VERSION'
-           implementation fileTree(include: ['*.jar'], dir: '../libs')
         }
 
         jar {
@@ -191,9 +151,6 @@ subprojects {
     into extDir
   }
 
-  compileJava {
-    dependsOn checkForDependencies
-  }
 
 
   install.doFirst  {

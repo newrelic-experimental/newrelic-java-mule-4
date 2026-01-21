@@ -9,18 +9,19 @@ java {
 }
 
 dependencies {
-   implementation 'org.mule.runtime:mule-core:4.9.2'
-   implementation group: 'com.google.guava', name: 'guava', version: '32.1.1-jre'
+    implementation 'org.mule.runtime:mule-core:4.9.2'
+    implementation group: 'com.google.guava', name: 'guava', version: '32.1.1-jre'
 
-   // New Relic Labs Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.1'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.4.1'
-   implementation fileTree(include: ['*.jar'], dir: '../libs')
+    // New Relic Labs Java Agent dependencies
+    implementation 'com.newrelic.agent.java:newrelic-agent:8.4.0'
+    implementation 'com.newrelic.agent.java:newrelic-api:8.4.0'
+    implementation 'com.newrelic.agent.java:agent-bridge:8.4.0'
+
 }
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Core-4.9.2'
+      attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Core-4.9.2'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
