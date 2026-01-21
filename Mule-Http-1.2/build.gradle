@@ -4,13 +4,13 @@
 apply plugin: 'java'
 
 dependencies {
-   	implementation 'org.mule.services:mule-service-http:1.2.0'
+   	implementation 'org.mule.services:mule-service-http:1.3.0'
     implementation 'org.mule.runtime:mule-service-http-api:4.2.0'
 
 
    // New Relic Labs Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.0.0'
+   implementation 'com.newrelic.agent.java:newrelic-agent:8.8.0'
+   implementation 'com.newrelic.agent.java:newrelic-api:8.4.0'
    implementation fileTree(include: ['*.jar'], dir: '../libs')
 }
 
@@ -30,12 +30,22 @@ verifyInstrumentation {
 	passes("org.mule.services:mule-service-http:(1.4.0,1.5.18)") {
 	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
 	}
-	passes("org.mule.services:mule-service-http:[1.6.0,)") {
+	passes("org.mule.services:mule-service-http:[1.6.0,1.8.24)") {
 	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
+	}
+	passes("org.mule.services:mule-service-http:[1.9.0,1.11.24)") {
+		implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
+	}
+	passes("org.mule.services:mule-service-http:[1.12.0,1.12.1)") {
+		implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
 	}
 	exclude 'org.mule.services:mule-service-http:1.5.18'
 	exclude 'org.mule.services:mule-service-http:1.6.19'
+	exclude 'org.mule.services:mule-service-http:1.11.10'
+	exclude 'org.mule.services:mule-service-http:1.11.11'
+	exclude 'org.mule.services:mule-service-http:1.11.12'
 	excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT.*'
     excludeRegex '.*-M.*'
+	excludeRegex '.*rc.*'
 }
