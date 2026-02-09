@@ -1,0 +1,28 @@
+
+// Build.gradle generated for instrumentation module Mule-APIKit-Module
+
+apply plugin: 'java'
+
+dependencies {
+    implementation 'org.mule.runtime:mule-core:4.3.0'
+    implementation 'org.mule.modules:mule-apikit-module:1.1.6:mule-plugin'
+
+
+   // New Relic Labs Java Agent dependencies
+   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.1'
+   implementation 'com.newrelic.agent.java:newrelic-api:6.4.1'
+   implementation fileTree(include: ['*.jar'], dir: '../libs')
+}
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-APIKit-Module'
+    attributes 'Implementation-Vendor': 'New Relic Labs'
+    attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+    attributes 'Implementation-Version': 1.0
+  }
+}
+
+verifyInstrumentation {
+    // will no longer verify no longer maintaining
+ }
