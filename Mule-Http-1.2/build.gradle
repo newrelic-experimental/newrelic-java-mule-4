@@ -24,11 +24,12 @@ jar {
 }
 
 verifyInstrumentation {
-	passes("org.mule.services:mule-service-http:(1.2.0,1.4.0)") {
-	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
+	passes("org.mule.services:mule-service-http:(1.2.0,1.4.0)")
+			{
+		implementation("org.mule.runtime:mule-service-http-api:4.3.0")
 	}
 	passes("org.mule.services:mule-service-http:(1.4.0,1.5.18)") {
-	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
+	implementation "org.mule.runtime:mule-service-http-api:4.3.0"
 	}
 	passes("org.mule.services:mule-service-http:[1.6.0,1.8.24)") {
 	implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
@@ -41,9 +42,7 @@ verifyInstrumentation {
 	}
 	exclude 'org.mule.services:mule-service-http:1.5.18'
 	exclude 'org.mule.services:mule-service-http:1.6.19'
-	exclude 'org.mule.services:mule-service-http:1.11.10'
-	exclude 'org.mule.services:mule-service-http:1.11.11'
-	exclude 'org.mule.services:mule-service-http:1.11.12'
+	excludeRegex 'org.mule.services:mule-service-http:1.11.1[0-6]'
 	excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT.*'
     excludeRegex '.*-M.*'
