@@ -1,29 +1,28 @@
-
 // Build.gradle generated for instrumentation module Mule-Scheduler
 
 apply plugin: 'java'
 
 dependencies {
-   implementation 'org.mule.services:mule-service-scheduler:1.1.0'
+    implementation 'org.mule.services:mule-service-scheduler:1.1.0'
 
-   // New Relic Labs Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.0'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.4.0'
-   implementation fileTree(include: ['*.jar'], dir: '../libs')
+    // New Relic Labs Java Agent dependencies
+    implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:newrelic-api:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:agent-bridge:' + project.findProperty('java.agent.version')
 }
 
 jar {
-  manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Scheduler'
-    attributes 'Implementation-Vendor': 'New Relic Labs'
-    attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
-    attributes 'Implementation-Version': 1.0
-  }
+    manifest {
+        attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Scheduler'
+        attributes 'Implementation-Vendor': 'New Relic Labs'
+        attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+        attributes 'Implementation-Version': 1.0
+    }
 }
 
 verifyInstrumentation {
-	passes 'org.mule.services:mule-service-scheduler:[1.0.0,)'
-	exclude 'org.mule.services:mule-service-scheduler:1.4.4'
+    passes 'org.mule.services:mule-service-scheduler:[1.0.0,)'
+    exclude 'org.mule.services:mule-service-scheduler:1.4.4'
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*-FD.*'

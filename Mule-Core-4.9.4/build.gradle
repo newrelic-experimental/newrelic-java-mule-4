@@ -1,30 +1,30 @@
-
 // Build.gradle generated for instrumentation module Mule-Core-4.5
 
 apply plugin: 'java'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 dependencies {
-   implementation 'org.mule.runtime:mule-core:4.9.4'
-   implementation group: 'com.google.guava', name: 'guava', version: '32.1.1-jre'
+    implementation 'org.mule.runtime:mule-core:4.9.4'
+    implementation group: 'com.google.guava', name: 'guava', version: '32.1.1-jre'
 
-   // New Relic Labs Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.1'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.4.1'
-   implementation fileTree(include: ['*.jar'], dir: '../libs')
+    // New Relic Labs Java Agent dependencies
+    implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:newrelic-api:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:agent-bridge:' + project.findProperty('java.agent.version')
 }
 
 jar {
-  manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Core-4.9.4'
-    attributes 'Implementation-Vendor': 'New Relic Labs'
-    attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
-    attributes 'Implementation-Version': 1.0
-  }
+    manifest {
+        attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Core-4.9.4'
+        attributes 'Implementation-Vendor': 'New Relic Labs'
+        attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+        attributes 'Implementation-Version': 1.0
+    }
 }
 
 verifyInstrumentation {
@@ -33,5 +33,5 @@ verifyInstrumentation {
     excludeRegex '.*rc.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*4.5.0-202.*'
-   
+
 }

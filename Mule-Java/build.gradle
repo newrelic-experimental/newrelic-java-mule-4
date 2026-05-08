@@ -1,29 +1,28 @@
-
 // Build.gradle generated for instrumentation module Mule-Java
 
 apply plugin: 'java'
 
 dependencies {
-	implementation 'org.mule.module:mule-java-module:1.0.0:mule-plugin'
+    implementation 'org.mule.module:mule-java-module:1.0.0:mule-plugin'
     implementation 'org.mule.runtime:mule-api:1.1.0'
 
-   // New Relic Labs Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.0.0'
-   implementation fileTree(include: ['*.jar'], dir: '../libs')
+    // New Relic Labs Java Agent dependencies
+    implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:newrelic-api:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:agent-bridge:' + project.findProperty('java.agent.version')
 }
 
 jar {
-  manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Java'
-    attributes 'Implementation-Vendor': 'New Relic Labs'
-    attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
-    attributes 'Implementation-Version': 1.0
-  }
+    manifest {
+        attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Java'
+        attributes 'Implementation-Vendor': 'New Relic Labs'
+        attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+        attributes 'Implementation-Version': 1.0
+    }
 }
 
 verifyInstrumentation {
-	passes ('org.mule.module:mule-java-module:[1.0.0,1.1.0)') {
-	implementation 'org.mule.module:mule-java-module:1.0.0:mule-plugin'
-	}
+    passes('org.mule.module:mule-java-module:[1.0.0,1.1.0)') {
+        implementation 'org.mule.module:mule-java-module:1.0.0:mule-plugin'
+    }
 }
