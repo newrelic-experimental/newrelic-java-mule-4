@@ -30,7 +30,6 @@ public abstract class GrizzlyRequestDispatcherFilter {
 
 	@Trace(dispatcher=true)
 	public NextAction handleRead(final FilterChainContext ctx) {
-		NewRelic.getAgent().getLogger().log(Level.FINE, new Exception("Call to GrizzlyRequestDispatcherFilter"),"Call to GrizzlyRequestDispatcherFilter({0}",ctx);
 		InetSocketAddress tmpLocal = (InetSocketAddress) ctx.getConnection().getLocalAddress();
 		DefaultServerAddress tmpServerAdd = new DefaultServerAddress(tmpLocal.getAddress().getHostAddress(), tmpLocal.getPort());
 		
