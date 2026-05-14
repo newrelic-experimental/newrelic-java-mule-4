@@ -1,4 +1,4 @@
-# New Relic Java Instrumentation for Mule 4.9.x
+# New Relic Java Instrumentation for Mule 4.9.x works with the Latest New Relic Java Aagent Released After May 2026.
 
 ## Overview
 
@@ -20,24 +20,14 @@ This instrumentation provides full observability for MuleSoft 4.9.x (LTS) applic
 Deploy the following jars to `{MULE_HOME}/newrelic/extensions/`:
 
 ### Core Modules (required)
-| Jar | Purpose |
-|-----|---------|
-| `Mule-Core-4.9.4.jar` | Core flow instrumentation — processors, event context, flow mediator |
-| `Mule-Extensions-4.3.jar` | Extension operation executor — token linking for async completion chain |
-| `Mule-Ning-Http.jar` | Custom HTTP client instrumentation — closes external call segments properly |
-| `Mule-HttpConnector.jar` | HTTP listener/requester tracer factory |
 
-### Supporting Modules (required)
-| Jar | Purpose |
-|-----|---------|
-| `Mule-API.jar` | ExecutableComponent instrumentation |
-| `Mule-Extensions-4.4.jar` | CompletionCallback, DefaultSourceCallback |
-| `Mule-Extensions-4.5.jar` | Enhanced source callback with application naming |
-| `Mule-Http.jar` | Grizzly HTTP listener (inbound) |
-| `Mule-Http-1.8.24.jar` | HTTP listener for connector version 1.8.24 |
-| `Mule-Http-Api.jar` | HTTP API route matching |
-| `Mule-Http-Api-4.2.jar` | HTTP API 4.2 |
-| `Mule-Scheduler.jar` | Scheduler instrumentation |
+
+To install:
+
+1. Download the latest release jar files.   
+2. In the New Relic Java directory (the one containing newrelic.jar), create a directory named extensions if it does not already exist.
+3. Copy the downloaded jars into the extensions directory.
+4. Restart the application.
 
 ### Executor Module (required for async thread linking)
 | Jar | Purpose |
@@ -46,12 +36,6 @@ Deploy the following jars to `{MULE_HOME}/newrelic/extensions/`:
 | `executors-22.jar` | ForkJoinPool/ThreadPool token propagation (JDK 22 API) |
 
 **Important:** Deploy ONLY `executors-17` and `executors-22`. Do NOT deploy other executor versions (8, 9, 10, 21) — they create competing tokens that cause transaction timeouts.
-
-### Optional Modules
-| Jar | Purpose |
-|-----|---------|
-| `Mule-Core-4.7.jar` through `Mule-Core-4.9.2.jar` | Support for older Mule 4.x versions |
-| `Mule-Http-1.2.jar` | Older HTTP connector version |
 
 ---
 
@@ -123,32 +107,7 @@ cd /path/to/newrelic-java-executors
 
 ---
 
-## Verification
 
-After deployment and restart, verify instrumentation is active:
-
-```bash
-LOG=/path/to/newrelic/logs/nrmule.log
-
-# 1. Module validation (should show "validated classloader")
-grep "Mule-Core-4.9.4.*validated" $LOG
-grep "Mule-Extensions-4.3.*validated" $LOG
-grep "Mule-Ning-Http.*validated" $LOG
-
-# 2. Classes weaved (should be ~84 for Mule-Core)
-grep -c "Mule-Core-4.9.4.*weaved" $LOG
-
-# 3. No field errors (should be 0)
-grep -c "Could not find required field name" $LOG
-
-# 4. Built-in modules disabled
-grep "ning.*disabled\|completable-future.*disabled" $LOG
-
-# 5. Transaction finishing with reasonable duration
-grep "OtherTransaction/Flows.*finished" $LOG | tail -5
-```
-
----
 
 ## Architecture: Async Thread Linking
 
@@ -178,33 +137,7 @@ Mule 4.9.x processes requests across multiple threads. Three async bridges link 
                                       └──────────────────┘
 ```
 
----
 
-## Known Limitations
-
-### Disabled Instrumentation Points (Mule 4.9.x reactive model)
-- **`AbstractProcessingStrategy`** consumer wrapping — deadlocks reactive pipeline
-- **`AbstractEventContext` constructors** — deadlocks during reactive initialization
-- **`Sink.emit()/accept()`** — token leaks from multiple Sink instances
-- **`retransformUninstrumentedClass()`** in NREventConsumer — blocks reactor thread
-
-### DT UI "Missing Parent" Spans
-`ResponseAsyncHandler/onCompleted` and the external call span may show "missing parent" in the Distributed Tracing UI. This is cosmetic — the Transaction Trace UI shows them correctly linked. The cause is `@Trace(async=true)` creating a span on the Grizzly I/O thread where no parent span context exists at tracer creation time.
-
-### JPMS Constraints
-- `Processor.process()` cannot call utility classes in `com.newrelic.mule.core` for processors in `org.mule.runtime.core.components` module — simplified to only set metric name
-- Utility class fields accessed from weaved code must be NON-final (causes `IllegalAccessError` across JPMS boundaries)
-
----
-
-## Troubleshooting
-
-See [TROUBLESHOOTING-GUIDE.md](TROUBLESHOOTING-GUIDE.md) for detailed diagnosis steps covering:
-- Module loading failures
-- App hanging
-- Token leaks
-- Segment timeouts
-- Handler wrapper chain issues
 
 ---
 
