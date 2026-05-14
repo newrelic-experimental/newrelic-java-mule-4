@@ -10,6 +10,7 @@ import com.newrelic.mule.core.NRMuleHeaders;
 @Weave(type=MatchType.Interface)
 public abstract class ExecutionTemplate<T> {
 
+	// PHASE 2: Re-enabled
 	@Trace(dispatcher=true)
 	public T execute(ExecutionCallback<T> callback) {
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","ExecutionTemplate",getClass().getName());

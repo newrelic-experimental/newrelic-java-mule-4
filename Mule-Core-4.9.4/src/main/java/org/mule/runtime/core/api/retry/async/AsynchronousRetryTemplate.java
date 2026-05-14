@@ -12,9 +12,9 @@ import com.newrelic.api.agent.weaver.Weaver;
 @Weave
 public abstract class AsynchronousRetryTemplate {
 
+	// PHASE 2: Re-enabled
 	@Trace(dispatcher=true)
 	public RetryContext execute(RetryCallback callback, Executor workManager) {
-		
 		return Weaver.callOriginal();
 	}
 }

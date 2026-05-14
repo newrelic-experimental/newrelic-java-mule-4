@@ -21,14 +21,15 @@ import com.newrelic.mule.core.NRCoreUtils;
 @Weave(type=MatchType.BaseClass)
 class AbstractMessageProcessorChain {
 	
+	// PHASE 2: Re-enabled
 	@NewField
 	protected String chainName = "Unknown";
-	
-	AbstractMessageProcessorChain(String name,Optional<ProcessingStrategy> processingStrategyOptional,List<Processor> processors, FlowExceptionHandler messagingExceptionHandler) { 
+
+	AbstractMessageProcessorChain(String name,Optional<ProcessingStrategy> processingStrategyOptional,List<Processor> processors, FlowExceptionHandler messagingExceptionHandler) {
 		if(name != null && !name.isEmpty()) {
 			chainName = name;
 		}
-	}	
+	}
 
 	@Trace(dispatcher=true)
 	public CoreEvent process(final CoreEvent event) {
@@ -39,7 +40,7 @@ class AbstractMessageProcessorChain {
 		NRCoreUtils.recordCoreEvent("Returned", returnedEvent, attributes);
 		NRCoreUtils.recordValue(attributes, "ChainName", chainName);
 		NewRelic.getAgent().getTracedMethod().addCustomAttributes(attributes);
-		
+
 		return returnedEvent;
 	}
 	

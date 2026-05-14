@@ -10,6 +10,8 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TransactionNamePriority;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.agent.bridge.AgentBridge;
+import com.newrelic.api.agent.ApplicationNamePriority;
 
 @Weave
 abstract class DefaultSourceCallback<T, A> {
@@ -19,6 +21,7 @@ abstract class DefaultSourceCallback<T, A> {
 
 	@Trace(dispatcher=true)
 	public void handle(Result<T, A> result, SourceCallbackContext context) {
+		AgentBridge.getAgent().getTransaction(false).setApplicationName(ApplicationNamePriority.REQUEST_ATTRIBUTE, applicationName);
 		NewRelic.addCustomParameter("Application-Name", applicationName != null ? applicationName : "Unnamed application");
 		FlowConstruct flowConstruct = messageProcessContext.getFlowConstruct();
 		String flowName = flowConstruct.getName();

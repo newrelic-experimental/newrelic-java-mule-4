@@ -8,12 +8,12 @@ import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 
 public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
-	
+
 	private String name = null;
 	private Token token = null;
-	
+
 	private static boolean isTransformed = false;
-	
+
 	public NRBiConsumer(String n) {
 		name = n;
 		token = NewRelic.getAgent().getTransaction().getToken();
@@ -22,7 +22,7 @@ public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
 			isTransformed = true;
 		}
 	}
-	
+
 	@Override
 	@Trace(async=true)
 	public void accept(T t, U u) {
@@ -32,6 +32,10 @@ public class NRBiConsumer<T,U> implements BiConsumer<T,U> {
 		if(token != null) {
 			token.linkAndExpire();
 			token = null;
+		}
+		// Report error if U is a Throwable
+		if(u instanceof Throwable) {
+			NewRelic.noticeError((Throwable)u);
 		}
 	}
 

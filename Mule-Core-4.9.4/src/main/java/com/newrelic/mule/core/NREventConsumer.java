@@ -23,10 +23,11 @@ public class NREventConsumer implements Consumer<CoreEvent> {
 	public NREventConsumer(String n, Consumer<CoreEvent> d) {
 		name = n;
 		delegate = d;
-		if(!isTransformed) {
-			isTransformed = true;
-			AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
-		}
+		// Removed: retransformUninstrumentedClass blocks reactor thread causing deadlock in Mule 4.9.x
+		// if(!isTransformed) {
+		// 	isTransformed = true;
+		// 	AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
+		// }
 	}
 
 	public NREventConsumer() {
@@ -49,10 +50,11 @@ public class NREventConsumer implements Consumer<CoreEvent> {
 	private class StartTransaction {
 
 		protected StartTransaction() {
-			if(!startTransformed) {
-				startTransformed = true;
-				AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
-			}
+			// Removed: retransformUninstrumentedClass blocks reactor thread causing deadlock in Mule 4.9.x
+			// if(!startTransformed) {
+			// 	startTransformed = true;
+			// 	AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
+			// }
 		}
 		
 		@Trace(dispatcher = true)

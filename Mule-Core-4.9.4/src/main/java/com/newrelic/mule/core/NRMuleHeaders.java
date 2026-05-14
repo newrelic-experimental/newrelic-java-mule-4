@@ -10,7 +10,7 @@ import com.newrelic.api.agent.Headers;
 
 public class NRMuleHeaders implements Headers {
 
-	private HashMap<String, String> headers = new HashMap<String, String>();
+	private HashMap<String, String> headerMap = new HashMap<String, String>();
 
 	@Override
 	public HeaderType getHeaderType() {
@@ -19,12 +19,12 @@ public class NRMuleHeaders implements Headers {
 
 	@Override
 	public String getHeader(String name) {
-		return headers.get(name);
+		return headerMap.get(name);
 	}
 
 	@Override
 	public Collection<String> getHeaders(String name) {
-		String value = headers.get(name);
+		String value = headerMap.get(name);
 		List<String> list = new ArrayList<String>();
 		if(value != null) {
 			list.add(value);
@@ -34,30 +34,30 @@ public class NRMuleHeaders implements Headers {
 
 	@Override
 	public void setHeader(String name, String value) {
-		headers.put(name, value);
+		headerMap.put(name, value);
 	}
 
 	@Override
 	public void addHeader(String name, String value) {
-		headers.put(name, value);
+		headerMap.put(name, value);
 	}
 
 	@Override
 	public Collection<String> getHeaderNames() {
-		return headers.keySet();
+		return headerMap.keySet();
 	}
 
 	@Override
 	public boolean containsHeader(String name) {
-		return headers.containsKey(name);
+		return headerMap.containsKey(name);
 	}
 
 	public boolean isEmpty() {
-		return headers.isEmpty();
+		return headerMap.isEmpty();
 	}
 	
 	public void clear() {
-		headers.clear();
+		headerMap.clear();
 	}
 
 }
