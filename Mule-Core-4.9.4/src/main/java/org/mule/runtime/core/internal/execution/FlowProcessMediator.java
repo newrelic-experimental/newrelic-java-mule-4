@@ -19,6 +19,7 @@ import java.util.Optional;
 @Weave
 public abstract class FlowProcessMediator {
 
+	// PHASE 2: Re-enabled
 	@Trace
 	public void process(FlowProcessTemplate template,MessageProcessContext messageProcessContext, Optional<DistributedTraceContextManager> distributedTraceContextManager) {
 		Map<String, Object> attributes = new HashMap<String, Object>();

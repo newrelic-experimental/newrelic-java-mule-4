@@ -11,11 +11,12 @@ import com.newrelic.mule.core.NRMuleHeaders;
 
 @Weave(type=MatchType.Interface)
 public abstract class ExecutionCallback<T> {
-	
+
 	@NewField
 	public NRMuleHeaders headers;
 
-	@Trace(dispatcher=true)
+	// PHASE 2: Re-enabled
+	@Trace
 	public T process() {
 		HeaderUtils.acceptHeaders(headers);
 		headers = null;

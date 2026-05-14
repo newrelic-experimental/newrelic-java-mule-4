@@ -15,9 +15,9 @@ import com.newrelic.mule.core.NRCoreUtils;
 @Weave
 public class MuleMessageProcessingManager {
 
+	// PHASE 2: Re-enabled
 	@Trace
 	public void processMessage(FlowProcessTemplate messageProcessTemplate, MessageProcessContext messageProcessContext) {
-		
 		FlowConstruct flow = messageProcessContext.getFlowConstruct();
 		if(flow != null) {
 			Map<String, Object> attributes = new HashMap<String, Object>();

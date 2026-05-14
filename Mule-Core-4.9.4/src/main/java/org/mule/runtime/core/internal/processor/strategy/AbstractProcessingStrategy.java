@@ -12,22 +12,26 @@ import com.newrelic.mule.core.NREventConsumer;
 @Weave(type=MatchType.BaseClass)
 public class AbstractProcessingStrategy {
 
-	protected Consumer<CoreEvent> createDefaultOnEventConsumer() {
-		Consumer<CoreEvent> consumer = Weaver.callOriginal();
-		if(NREventConsumer.class.isInstance(consumer)) {
-			return consumer;
-		} else {
-			NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create",consumer);
-			return wrapper;
-		}
-	}
-	
-	public void setOnEventConsumer(Consumer<CoreEvent> onEventConsumer)  {
-		if(!NREventConsumer.class.isInstance(onEventConsumer)) {
-			NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create",onEventConsumer);
-			onEventConsumer =  wrapper;
-		}
-		Weaver.callOriginal();
-	}
+	// DISABLED: Consumer wrapping itself (not just retransform) causes deadlock in Mule 4.9.x
+	// Mule's reactive pipeline setup requires the original consumer type/identity
+	// Replacing with NREventConsumer breaks Flux pipeline wiring
+	// Need alternative approach for transaction creation on reactor threads
+	//
+	// protected Consumer<CoreEvent> createDefaultOnEventConsumer() {
+	// 	Consumer<CoreEvent> consumer = Weaver.callOriginal();
+	// 	if(NREventConsumer.class.isInstance(consumer)) {
+	// 		return consumer;
+	// 	} else {
+	// 		NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create",consumer);
+	// 		return wrapper;
+	// 	}
+	// }
+	// public void setOnEventConsumer(Consumer<CoreEvent> onEventConsumer) {
+	// 	if(!NREventConsumer.class.isInstance(onEventConsumer)) {
+	// 		NREventConsumer wrapper = new NREventConsumer("ProcessingStrategy-Create",onEventConsumer);
+	// 		onEventConsumer = wrapper;
+	// 	}
+	// 	Weaver.callOriginal();
+	// }
 	
 }

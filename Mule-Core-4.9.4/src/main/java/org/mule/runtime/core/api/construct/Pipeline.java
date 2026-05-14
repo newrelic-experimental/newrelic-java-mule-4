@@ -10,6 +10,7 @@ import com.newrelic.api.agent.weaver.Weaver;
 @Weave(type=MatchType.Interface)
 public abstract class Pipeline {
 
+	// PHASE 2: Re-enabled
 	@Trace
 	public ProcessingStrategyFactory getProcessingStrategyFactory() {
 		return Weaver.callOriginal();
