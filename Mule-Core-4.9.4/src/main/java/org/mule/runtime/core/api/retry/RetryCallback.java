@@ -9,6 +9,7 @@ import com.newrelic.api.agent.weaver.Weaver;
 @Weave(type=MatchType.Interface)
 public abstract class RetryCallback {
 
+	// PHASE 2: Re-enabled
 	@Trace
 	public void doWork(RetryContext context) {
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","RetryCallback",getClass().getSimpleName(),"doWork");

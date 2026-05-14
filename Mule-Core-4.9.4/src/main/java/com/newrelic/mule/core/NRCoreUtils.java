@@ -57,6 +57,7 @@ public class NRCoreUtils {
 			recordValue(attributes, "MuleContext-Id", context.getId());
 			recordValue(attributes, "MuleContext-UniqueID", context.getUniqueIdString());
 			// Set Application-Name as transaction attribute only
+			
 			try {
 				String applicationName = context.getConfiguration().getSystemName();
 				String appName = applicationName != null ? applicationName : "Unnamed application";

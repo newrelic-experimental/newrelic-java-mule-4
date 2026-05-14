@@ -5,6 +5,7 @@ import org.mule.runtime.core.api.event.CoreEvent;
 import org.mule.runtime.core.privileged.event.BaseEventContext;
 
 import com.newrelic.api.agent.NewRelic;
+import com.newrelic.api.agent.Token;
 import com.newrelic.mule.core.NRMuleHeaders;
 
 public class MuleUtils {
@@ -51,6 +52,22 @@ public class MuleUtils {
 		
 	}
 	
+	// Get and clear the token stored on the event context (for async thread linking)
+	public static Token getAndClearToken(CoreEvent event) {
+		if(event != null) {
+			EventContext ctx = event.getContext();
+			if(ctx instanceof AbstractEventContext) {
+				AbstractEventContext actx = (AbstractEventContext) ctx;
+				Token t = actx.token;
+				if(t != null) {
+					actx.token = null;
+					return t;
+				}
+			}
+		}
+		return null;
+	}
+
 	public static void setHeaders(EventContext context, NRMuleHeaders headers) {
 		if (context instanceof BaseEventContext) {
 			BaseEventContext rootContext = ((BaseEventContext)context).getRootContext();

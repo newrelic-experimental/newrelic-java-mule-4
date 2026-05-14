@@ -12,8 +12,9 @@ import com.newrelic.api.agent.weaver.Weaver;
 @Weave
 public abstract class ClassLoaderInjectorInvocationHandler {
 	
+	// PHASE 2: Re-enabled
 	private final Object delegate = Weaver.callOriginal();
-	
+
 	@Trace
 	public Object invoke(Object proxy, Method method, Object[] args) {
 		List<String> names = new ArrayList<String>();

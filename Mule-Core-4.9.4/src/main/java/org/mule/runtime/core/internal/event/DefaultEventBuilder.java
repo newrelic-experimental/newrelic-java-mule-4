@@ -11,13 +11,11 @@ import com.newrelic.mule.core.NRMuleHeaders;
 @Weave
 public abstract class DefaultEventBuilder {
 	
+	// PHASE 2: Re-enabled
 	public InternalEvent build() {
 		InternalEvent event = Weaver.callOriginal();
-		
-		String  corrId = event.getCorrelationId();
-		
+		String corrId = event.getCorrelationId();
 		NewRelic.addCustomParameter("CorrelationId", corrId);
-		
 		BaseEventContext eventCtx = event.getContext();
 		if(eventCtx != null) {
 			NRMuleHeaders headers = MuleUtils.getHeaders(event);
@@ -30,7 +28,6 @@ public abstract class DefaultEventBuilder {
 			}
 		}
 		return event;
-		
 	}
 
 }

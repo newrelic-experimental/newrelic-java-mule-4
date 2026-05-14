@@ -17,14 +17,15 @@ import com.newrelic.mule.core.NRMuleHeaders;
 @Weave
 public abstract class RetryWorker {
 	
+	// PHASE 2: Re-enabled
 	@NewField
-	private NRMuleHeaders headers = null;
-	
+	private NRMuleHeaders headers;
+
 	public RetryWorker(RetryPolicyTemplate delegate, RetryCallback callback, Executor workManager, Latch startLatch) {
 		headers = new NRMuleHeaders();
 		NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(headers);
 	}
-	
+
 	@Trace(dispatcher=true)
 	public void run() {
 		HeaderUtils.acceptHeaders(headers);

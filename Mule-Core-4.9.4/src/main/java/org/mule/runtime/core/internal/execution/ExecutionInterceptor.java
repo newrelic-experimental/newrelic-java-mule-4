@@ -12,6 +12,7 @@ import com.newrelic.mule.core.HeaderUtils;
 @Weave(type=MatchType.Interface)
 public abstract class ExecutionInterceptor<T> {
 
+	// PHASE 2: Re-enabled
 	@Trace
 	public T execute(ExecutionCallback<T> callback, ExecutionContext executionContext) {
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","ExecutionInterceptor",getClass().getName(),"execute");
