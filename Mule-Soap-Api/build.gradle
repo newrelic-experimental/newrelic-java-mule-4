@@ -4,7 +4,6 @@ apply plugin: 'java'
 
 dependencies {
     implementation 'org.mule.runtime:mule-service-soap-api:4.1.0'
-    implementation 'org.mule.services:mule-service-soap:1.4.0'
 
     // New Relic Labs Java Agent dependencies
     implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
@@ -22,7 +21,9 @@ jar {
 }
 
 verifyInstrumentation {
-    passes 'org.mule.runtime:mule-service-soap-api:[4.0.0,)'
+    passes("org.mule.runtime:mule-service-soap-api:[4.0.0,)") {
+        implementation("org.mule.services:mule-service-soap:1.4.0")
+    }
     excludeRegex '.*MULE.*'
     excludeRegex '.*SNAPSHOT'
     excludeRegex '.*-M.*'
