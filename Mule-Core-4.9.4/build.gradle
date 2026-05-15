@@ -10,7 +10,6 @@ java {
 
 dependencies {
     implementation 'org.mule.runtime:mule-core:4.9.4'
-    implementation group: 'com.google.guava', name: 'guava', version: '32.1.1-jre'
 
     // New Relic Labs Java Agent dependencies
     implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
