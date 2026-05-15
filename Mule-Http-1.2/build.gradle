@@ -40,6 +40,7 @@ verifyInstrumentation {
         implementation 'org.mule.runtime:mule-service-http-api:4.3.0'
     }
     exclude 'org.mule.services:mule-service-http:1.5.18'
+    exclude 'org.mule.services:mule-service-http:1.11.17'
     exclude 'org.mule.services:mule-service-http:1.6.19'
     excludeRegex 'org.mule.services:mule-service-http:1.11.1[0-6]'
     excludeRegex '.*MULE.*'
