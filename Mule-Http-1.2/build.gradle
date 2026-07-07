@@ -41,6 +41,7 @@ verifyInstrumentation {
     }
     exclude 'org.mule.services:mule-service-http:1.5.18'
     exclude 'org.mule.services:mule-service-http:1.11.17'
+    exclude 'org.mule.services:mule-service-http:1.11.18'
     exclude 'org.mule.services:mule-service-http:1.6.19'
     excludeRegex 'org.mule.services:mule-service-http:1.11.1[0-6]'
     excludeRegex '.*MULE.*'
