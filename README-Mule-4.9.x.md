@@ -57,12 +57,18 @@ common: &default_settings
   # Disable built-in modules that conflict with Mule extensions
   class_transformer:
 
-    # Disable built-in ning HTTP client — replaced by custom Mule-Ning-Http module
+    # Disable built-in ning HTTP client (com.ning:async-http-client 1.x) — replaced by custom Mule-Ning-Http module
     com.newrelic.instrumentation.ning-async-http-client-1.0:
       enabled: false
     com.newrelic.instrumentation.ning-async-http-client-1.1:
       enabled: false
     com.newrelic.instrumentation.ning-async-http-client-1.6.1:
+      enabled: false
+
+    # Disable built-in async-http-client module (org.asynchttpclient:async-http-client 2.x,
+    # the renamed fork of the ning client) — some Mule/connector builds pull this in instead
+    # of (or alongside) the 1.x ning lineage above; same handler-chain conflict applies.
+    com.newrelic.instrumentation.async-http-client-2.1.0:
       enabled: false
 
     # Disable built-in CompletableFuture modules — conflict with executor module
@@ -74,7 +80,7 @@ common: &default_settings
 
 ### Why These Settings Are Required
 
-**ning-async-http-client disabled:** Mule uses a customized version of the ning HTTP client (Grizzly). The built-in NR module can't properly close HTTP segments because Mule wraps the async handler chain. Our custom `Mule-Ning-Http` module handles this with a `transferToHandler()` pattern that bridges the wrapper chain.
+**ning-async-http-client / async-http-client disabled:** Mule uses a customized async HTTP client (Grizzly), and depending on the exact Mule/connector build, this may resolve to either the older `com.ning:async-http-client` (1.x) or its renamed fork `org.asynchttpclient:async-http-client` (2.x). The built-in NR modules for either lineage can't properly close HTTP segments because Mule wraps the async handler chain. Our custom `Mule-Ning-Http` module handles this with a `transferToHandler()` pattern that bridges the wrapper chain — disable both built-in lineages so neither competes with it, even if only one is actually present on a given deployment's classpath.
 
 **completable-future disabled:** Mule 4.9.x's reactive model creates many CompletableFuture instances during pipeline setup. The built-in modules create `Token/Internal` tokens for each one — these tokens leak because Mule's completions fire on Grizzly I/O threads outside the tracked lifecycle. The executor module (`executors-17/22`) handles the thread linking we need.
 
