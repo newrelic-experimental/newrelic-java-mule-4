@@ -1,0 +1,34 @@
+// Build.gradle generated for instrumentation module Mule-Http-Connector
+
+apply plugin: 'java'
+
+dependencies {
+    implementation 'org.mule.sdk:mule-sdk-api:0.12.0'
+    implementation 'org.mule.runtime:mule-service-http-api:4.2.0'
+    implementation 'org.mule.runtime:mule-api:1.9.0'
+
+    // New Relic Labs Java Agent dependencies
+    implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:newrelic-api:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:agent-bridge:' + project.findProperty('java.agent.version')
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Http-Connector'
+        attributes 'Implementation-Vendor': 'New Relic Labs'
+        attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+        attributes 'Implementation-Version': project.findProperty('moduleVersion')
+    }
+}
+
+verifyInstrumentation {
+    // mule-http-connector <=1.10.x: ModuleRequestHandler extends org.mule.runtime.http.api.server.RequestHandler
+    passes 'org.mule.runtime:mule-service-http-api:[4.2.0,)'
+    // mule-http-connector >=1.11.x: ModuleRequestHandler extends org.mule.sdk.api.http.server.RequestHandler
+    passes 'org.mule.sdk:mule-sdk-api:[0.12.0,)'
+    excludeRegex '.*MULE.*'
+    excludeRegex '.*SNAPSHOT.*'
+    excludeRegex '.*-M.*'
+    excludeRegex '.*rc.*'
+}

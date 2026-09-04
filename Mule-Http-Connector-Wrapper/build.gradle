@@ -1,0 +1,33 @@
+// Build.gradle generated for instrumentation module Mule-Http-Connector-Wrapper
+
+apply plugin: 'java'
+
+dependencies {
+    implementation 'org.mule.runtime:mule-service-http-api:4.2.0'
+    implementation 'org.mule.runtime:mule-api:1.9.0'
+
+    // New Relic Labs Java Agent dependencies
+    implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:newrelic-api:' + project.findProperty('java.agent.version')
+    implementation 'com.newrelic.agent.java:agent-bridge:' + project.findProperty('java.agent.version')
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.Mule-Http-Connector-Wrapper'
+        attributes 'Implementation-Vendor': 'New Relic Labs'
+        attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+        attributes 'Implementation-Version': project.findProperty('moduleVersion')
+    }
+}
+
+verifyInstrumentation {
+    // RequestHandlerWrapper is native to mule-http-connector itself (>=1.11.0), not an imported
+    // API type - weaving it as a concrete/exact class avoids the cross-module resource-lookup
+    // gap that MatchType.Interface hits against Mule's plugin classloaders.
+    passes 'org.mule.runtime:mule-service-http-api:[4.2.0,)'
+    excludeRegex '.*MULE.*'
+    excludeRegex '.*SNAPSHOT.*'
+    excludeRegex '.*-M.*'
+    excludeRegex '.*rc.*'
+}
